@@ -1,0 +1,9 @@
+{
+  "updated": "2026-11-16T03:00:00Z",
+  "source": "https://leekduck.com/events/",
+  "events": [
+    {"id":"live_seed_starters_20261119","name":"Grookey, Scorbunny, and Sobble Spotlight Hour","start":"2026-11-19T18:00","end":"2026-11-19T19:00","types":["Grass","Fire","Water"],"bonus":"2× Catch Candy","category":"event","source":"https://leekduck.com/events/","catch":true,"notes":"Initial seed. Daily automatic sync replaces this with current Leek Duck event data."},
+    {"id":"live_seed_pawniard_20261121","name":"Pawniard Community Day","start":"2026-11-21T14:00","end":"2026-11-21T17:00","types":["Dark","Steel"],"bonus":"2× Catch Candy; 2× chance for Candy XL for trainers level 31+","category":"event","source":"https://leekduck.com/events/","catch":true,"notes":"Initial seed. Daily sync replaces this with current event data."},
+    {"id":"live_seed_noibat_20261126","name":"Noibat Spotlight Hour","start":"2026-11-26T18:00","end":"2026-11-26T19:00","types":["Flying","Dragon"],"bonus":"2× Catch Candy","category":"event","source":"https://leekduck.com/events/","catch":true,"notes":"Initial seed. Daily sync replaces this with current event data."}
+  ]
+}
