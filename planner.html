@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b1321">
+  <title>Mega Planner • Pokémon GO</title>
+  <style>
+    :root{color-scheme:dark;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#0b1321;color:#f4f7fe}
+    body{margin:0;min-height:100dvh;display:grid;place-items:center;background:radial-gradient(circle at top,#1c3350,#0b1321 65%)}
+    main{width:min(92vw,430px);padding:26px;text-align:center}
+    h1{font-size:clamp(28px,7vw,42px);margin:12px 0;color:#f4f7fe}
+    p{color:#afc0d5;line-height:1.6}
+    .logo{font-size:42px}
+    .spin{display:block;margin:26px auto;width:32px;height:32px;border:3px solid #314663;border-top-color:#70e4d0;border-radius:50%;animation:turn .8s linear infinite}
+    @keyframes turn{to{transform:rotate(360deg)}}
+    a{color:#70e4d0}
+    #fallback{display:none}
+    button{font:inherit;background:#207a77;color:white;border:0;border-radius:12px;padding:13px 17px;cursor:pointer;margin-top:10px}
+  </style>
+</head>
+<body>
+  <main>
+    <div class="logo">🐉</div>
+    <h1>Mega Planner ✦</h1>
+    <p id="status">De nieuwste versie van jouw Mega Planner ophalen…</p>
+    <span class="spin" id="spinner" aria-label="Bezig met laden"></span>
+    <div id="fallback">
+      <p>Automatisch laden lukt nu niet. Je kunt de vorige versie alsnog openen.</p>
+      <a href="./Pokemon_GO_Mega_Planner_V3.html">Open Mega Planner V3</a>
+      <p><button id="retry">Opnieuw proberen</button></p>
+    </div>
+  </main>
+  <script>
+  (async function() {
+    'use strict';
+    const REPO_API = 'https://api.github.com/repos/jorritpopkes/pokemon-go-mega-planner/contents?ref=main';
+    const CACHE_KEY = 'mega-planner-latest-file-v1';
+    const INITIAL = 'Pokemon_GO_Mega_Planner_V3.html';
+    const VERSION_RE = /^Pokemon_GO_Mega_Planner_V(\d+)(?:[._-](\d+))?(?:[._-](\d+))?\.html$/i;
+    const $ = id => document.getElementById(id);
+    function version(name) {
+      const found = VERSION_RE.exec(name);
+      return found ? found.slice(1).map(x => Number(x || 0)) : null;
+    }
+    function newer(a,b) {
+      const aa=version(a),bb=version(b);
+      if(!aa)return false;
+      if(!bb)return true;
+      for(let i=0;i<3;i++){if(aa[i]!==bb[i])return aa[i]>bb[i]}
+      return false;
+    }
+    async function get(url) {
+      const ctl = new AbortController(), timer = setTimeout(()=>ctl.abort(),7500);
+      try {
+        const response = await fetch(url, {cache:'no-store',signal:ctl.signal});
+        if(!response.ok)throw Error('HTTP '+response.status);
+        return response;
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+    let cached='';
+    try {
+      const v=localStorage.getItem(CACHE_KEY)||'';
+      if(version(v))cached=v;
+    } catch(_){}
+    let versions=[];
+    try {
+      const data=await (await get(REPO_API)).json();
+      if(!Array.isArray(data))throw Error('Repositorylijst ontbreekt');
+      versions=data.filter(f=>f.type==='file'&&version(f.name)).map(f=>f.name).sort((a,b)=>newer(a,b)?-1:newer(b,a)?1:0);
+    } catch(error) {
+      console.warn('Versielijst tijdelijk niet bereikbaar, reserve wordt gebruikt.',error);
+    }
+    let candidates=[...new Set([...versions,cached,INITIAL].filter(x=>version(x)))];
+    for(const file of candidates) {
+      try {
+        $('status').textContent='Mega Planner laden…';
+        const html=await (await get('./'+encodeURIComponent(file))).text();
+        if(!/<html\b/i.test(html)||!/<\/html>/i.test(html)||!/<script\b/i.test(html))throw Error('Geen geldige planner');
+        try {localStorage.setItem(CACHE_KEY,file)} catch(_){}
+        // Laad de actuele app IN deze pagina. Zo blijft de adresbalk en
+        // Samsung-startschermsnelkoppeling voor altijd op /planner.html staan.
+        // Ook de bestaande lokale Mega-gegevens blijven op dezelfde oorsprong.
+        document.open();
+        document.write(html);
+        document.close();
+        return;
+      } catch(error) {
+        console.warn('Kon '+file+' niet laden, probeer reserve.',error);
+      }
+    }
+    $('status').textContent='De planner kan tijdelijk niet automatisch laden.';
+    $('spinner').style.display='none';
+    $('fallback').style.display='block';
+    $('retry').addEventListener('click',()=>location.reload());
+  })();
+  </script>
+</body>
+</html>
