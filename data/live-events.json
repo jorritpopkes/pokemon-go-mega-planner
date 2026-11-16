@@ -1,9 +1,569 @@
 {
-  "updated": "2026-11-16T03:00:00Z",
-  "source": "https://leekduck.com/events/",
+  "updated": "2026-11-16T10:50:20+00:00",
+  "source": "https://pokelitee.github.io/leak-duck/events.json",
   "events": [
-    {"id":"live_seed_starters_20261119","name":"Grookey, Scorbunny, and Sobble Spotlight Hour","start":"2026-11-19T18:00","end":"2026-11-19T19:00","types":["Grass","Fire","Water"],"bonus":"2× Catch Candy","category":"event","source":"https://leekduck.com/events/","catch":true,"notes":"Initial seed. Daily automatic sync replaces this with current Leek Duck event data."},
-    {"id":"live_seed_pawniard_20261121","name":"Pawniard Community Day","start":"2026-11-21T14:00","end":"2026-11-21T17:00","types":["Dark","Steel"],"bonus":"2× Catch Candy; 2× chance for Candy XL for trainers level 31+","category":"event","source":"https://leekduck.com/events/","catch":true,"notes":"Initial seed. Daily sync replaces this with current event data."},
-    {"id":"live_seed_noibat_20261126","name":"Noibat Spotlight Hour","start":"2026-11-26T18:00","end":"2026-11-26T19:00","types":["Flying","Dragon"],"bonus":"2× Catch Candy","category":"event","source":"https://leekduck.com/events/","catch":true,"notes":"Initial seed. Daily sync replaces this with current event data."}
+    {
+      "id": "live_bb72d3054c094e",
+      "name": "Twilight Trails",
+      "start": "2026-09-08T10:00",
+      "end": "2026-12-01T10:00",
+      "types": [],
+      "bonus": "2× Daily Adventure Incense duration; Increased XP and Stardust from hatching Eggs; Increased limits on opening Gifts, receiving Gifts from PokéStop and Gym Photo Discs, and storing Gifts",
+      "category": "event",
+      "source": "https://leekduck.com/events/season-24-twilight-trails/",
+      "catch": false,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
+    },
+    {
+      "id": "live_2815b5d20ad46c",
+      "name": "adidas × Pokémon Timed Research",
+      "start": "2026-09-25T10:00",
+      "end": "2027-01-15T20:00",
+      "types": [],
+      "bonus": "Celebrate the adidas × Pokémon collection with Timed Research at participating adidas and retail stores worldwide!",
+      "category": "event",
+      "source": "https://leekduck.com/events/pokemon-x-adidas-2026/",
+      "catch": false,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
+    },
+    {
+      "id": "live_d3936c8bab70c9",
+      "name": "GO Pass: November",
+      "start": "2026-11-03T10:00",
+      "end": "2026-12-01T10:00",
+      "types": [],
+      "bonus": "2× Daily Adventure Incense duration; Hold 10 more Gifts in your Item Bag; Hold up to 20 more Gifts in your Item Bag",
+      "category": "event",
+      "source": "https://leekduck.com/events/go-pass-november-2026/",
+      "catch": false,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
+    },
+    {
+      "id": "live_5810bddd63aae3",
+      "name": "GO Wild Area: Gigantamax Machamp Power Up! Timed Research",
+      "start": "2026-11-06T10:00",
+      "end": "2026-11-15T23:59",
+      "types": [
+        "Fighting"
+      ],
+      "bonus": "There will be Timed Research available to Trainers starting Friday, November 6, at 10:00 a.m. to Sunday, November 15, 2026, at 11:59 p.m. local time.",
+      "category": "event",
+      "source": "https://leekduck.com/events/go-wild-area-gigantamax-machamp-power-up-timed-research/",
+      "catch": false,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
+    },
+    {
+      "id": "live_e800c6da2acbe3",
+      "name": "Great League, Ultra League: Mega Edition, and 2026 GO LAIC Cup | Twilight Trails",
+      "start": "2026-11-10T22:00",
+      "end": "2026-11-17T22:00",
+      "types": [],
+      "bonus": "The Great League, Ultra League: Mega Edition, and 2026 GO LAIC Cup will run from November 10, 2026, at 1:00 p.m. to November 17, 2026, at 1:00 p.m. PT.",
+      "category": "event",
+      "source": "https://leekduck.com/events/gbl-twilight-trails_great-league_ultra-league-mega-edition_2026-go-laic-cup/",
+      "catch": false,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
+    },
+    {
+      "id": "live_bc91cbdaf19ea5",
+      "name": "Pokémon GO Wild Area 2026: Global",
+      "start": "2026-11-14T10:00",
+      "end": "2026-11-15T18:00",
+      "types": [
+        "Steel",
+        "Psychic",
+        "Flying",
+        "Dragon"
+      ],
+      "bonus": "1/2 Stardust cost for trades; 2× Candy for catching Pokémon; 2× Incense duration",
+      "category": "event",
+      "source": "https://leekduck.com/events/pokemon-go-wild-area-2026-global/",
+      "catch": true,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
+    },
+    {
+      "id": "live_62b83b41574dc6",
+      "name": "Minior Showers: Leonids 2026",
+      "start": "2026-11-14T17:00",
+      "end": "2026-11-19T23:59",
+      "types": [
+        "Rock",
+        "Flying"
+      ],
+      "bonus": "Increased Stardust for catching Minior; Increased chance to encounter Minior from 5:00 p.m. to 9:00 p.m. local time each day",
+      "category": "event",
+      "source": "https://leekduck.com/events/minior-showers-leonids-2026/",
+      "catch": true,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
+    },
+    {
+      "id": "live_1283836eb14ec3",
+      "name": "Cresselia and Darkrai in 5-star Raid Battles",
+      "start": "2026-11-16T06:00",
+      "end": "2026-11-24T22:00",
+      "types": [
+        "Psychic",
+        "Dark"
+      ],
+      "bonus": "Cresselia and Darkrai will be in five-star raid battles from November 16, 2026 to November 24, 2026.",
+      "category": "raid",
+      "source": "https://leekduck.com/events/cresselia-darkrai-in-5-star-raid-battles-november-2026/",
+      "catch": true,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
+    },
+    {
+      "id": "live_4fa6370b6b53d7",
+      "name": "Max Monday: Pokémon to be announced",
+      "start": "2026-11-16T06:00",
+      "end": "2026-11-16T21:00",
+      "types": [],
+      "bonus": "The featured Dynamax Pokémon for November 16–23, 2026 has not been announced. Stay tuned for more details.",
+      "category": "tba",
+      "source": "https://leekduck.com/events/max-mondays-2026-11-16/",
+      "catch": false,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
+    },
+    {
+      "id": "live_4a2e2d1d4d274d",
+      "name": "Mega Banette in Mega Raids",
+      "start": "2026-11-16T06:00",
+      "end": "2026-11-24T22:00",
+      "types": [
+        "Ghost"
+      ],
+      "bonus": "Mega Banette will be in Mega Raids from November 16, 2026 at 6 am to November 24, 2026 at 10 pm local time.",
+      "category": "raid",
+      "source": "https://leekduck.com/events/mega-banette-in-mega-raids-november-2026/",
+      "catch": true,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
+    },
+    {
+      "id": "live_c13dc18735d79d",
+      "name": "Shadow Tornadus (Incarnate Forme) in Shadow Raids",
+      "start": "2026-11-16T06:00",
+      "end": "2026-12-01T22:00",
+      "types": [
+        "Flying"
+      ],
+      "bonus": "Shadow Tornadus (Incarnate Forme) will appear in five-star Shadow Raids every weekend from November 16, 2026 to December 1, 2026.",
+      "category": "raid",
+      "source": "https://leekduck.com/events/shadow-tornadus-incarnate-forme-in-shadow-raids-november-16-2026/",
+      "catch": true,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
+    },
+    {
+      "id": "live_ce8a2cbcfbc139",
+      "name": "Dynamax Trails",
+      "start": "2026-11-16T10:00",
+      "end": "2026-11-23T20:00",
+      "types": [
+        "Psychic",
+        "Steel",
+        "Grass",
+        "Normal",
+        "Ice",
+        "Fighting",
+        "Dark",
+        "Ghost",
+        "Fire",
+        "Water"
+      ],
+      "bonus": "1/2 Candy and Stardust cost to activate the Dynamax Cannon Adventure Effect; 2× Catch Stardust; Additional Candy and Candy XL from Max Battles",
+      "category": "event",
+      "source": "https://leekduck.com/events/dynamax-trails-2026/",
+      "catch": true,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
+    },
+    {
+      "id": "live_0e3ec4324f540f",
+      "name": "Cresselia and Darkrai Raid Hour",
+      "start": "2026-11-18T18:00",
+      "end": "2026-11-18T19:00",
+      "types": [
+        "Psychic",
+        "Dark"
+      ],
+      "bonus": "A Raid Hour featuring Cresselia and Darkrai is scheduled from 6:00 p.m. to 7:00 p.m. local time. During this hour there will be an increased number of five-star raids.",
+      "category": "raid",
+      "source": "https://leekduck.com/events/raidhour20261118/",
+      "catch": true,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
+    },
+    {
+      "id": "live_98ad799a562944",
+      "name": "Ultra League, Master League: Mega Edition, and 2026 GO LAIC Cup | Twilight Trails",
+      "start": "2026-11-18T22:00",
+      "end": "2026-11-25T22:00",
+      "types": [],
+      "bonus": "The Ultra League, Master League: Mega Edition, and 2026 GO LAIC Cup will run from November 18, 2026, at 1:00 p.m. to November 25, 2026, at 1:00 p.m. PT.",
+      "category": "event",
+      "source": "https://leekduck.com/events/gbl-twilight-trails_ultra-league_master-league-mega-edition_2026-go-laic-cup/",
+      "catch": false,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
+    },
+    {
+      "id": "live_ffd8ed591858b8",
+      "name": "Grookey, Scorbunny, and Sobble Spotlight Hour",
+      "start": "2026-11-19T18:00",
+      "end": "2026-11-19T19:00",
+      "types": [
+        "Grass",
+        "Fire",
+        "Water"
+      ],
+      "bonus": "Pokémon Spotlight Hour will feature a different Pokémon and special bonus for one hour at 6:00 p.m. local time.",
+      "category": "event",
+      "source": "https://leekduck.com/events/pokemonspotlighthour2026-11-19/",
+      "catch": true,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
+    },
+    {
+      "id": "live_6c3e044859d279",
+      "name": "Eternamax Eternatus Returns",
+      "start": "2026-11-21T11:00",
+      "end": "2026-11-21T14:00",
+      "types": [
+        "Poison",
+        "Dragon"
+      ],
+      "bonus": "8× Max Particles from Power Spots; Max Particle collection limit increased to 2,400; Power Spots will refresh more frequently",
+      "category": "event",
+      "source": "https://leekduck.com/events/eternamax-eternatus-max-battles-2026/",
+      "catch": false,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
+    },
+    {
+      "id": "live_2c47311e6680d4",
+      "name": "Pawniard Community Day",
+      "start": "2026-11-21T14:00",
+      "end": "2026-11-21T17:00",
+      "types": [
+        "Dark",
+        "Steel"
+      ],
+      "bonus": "1-hour Lures*; 1/4 Egg Hatch Distance; 2x Catch Candy",
+      "category": "event",
+      "source": "https://leekduck.com/events/november-communityday2026/",
+      "catch": true,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
+    },
+    {
+      "id": "live_88def687697293",
+      "name": "Dynamax Espurr during Max Monday",
+      "start": "2026-11-23T06:00",
+      "end": "2026-11-23T21:00",
+      "types": [
+        "Psychic"
+      ],
+      "bonus": "Dynamax Espurr may appear in Max Battles from November 23, 2026 through November 29, 2026.",
+      "category": "event",
+      "source": "https://leekduck.com/events/max-mondays-2026-11-23/",
+      "catch": false,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
+    },
+    {
+      "id": "live_5be62bd4897966",
+      "name": "Twilight Wishes",
+      "start": "2026-11-24T10:00",
+      "end": "2026-11-30T20:00",
+      "types": [
+        "Fairy",
+        "Psychic",
+        "Rock",
+        "Water",
+        "Bug",
+        "Poison",
+        "Dark",
+        "Fire",
+        "Electric",
+        "Ghost"
+      ],
+      "bonus": "2× Stardust for catching Pokémon; GO Pass Deluxe: 3× Stardust for catching Pokémon; Increased chance to become Lucky Friends",
+      "category": "event",
+      "source": "https://leekduck.com/events/twilight-wishes-2026/",
+      "catch": true,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
+    },
+    {
+      "id": "live_6f5c80e42be5a6",
+      "name": "Master League and Mega Catch Cup: Great League Edition | Twilight Trails",
+      "start": "2026-11-24T22:00",
+      "end": "2026-12-01T22:00",
+      "types": [],
+      "bonus": "The Master League and Mega Catch Cup: Great League Edition will run from November 24, 2026, at 1:00 p.m. to December 1, 2026, at 1:00 p.m. PT.",
+      "category": "event",
+      "source": "https://leekduck.com/events/gbl-twilight-trails_master-league_mega-catch-cup-great-league-edition/",
+      "catch": false,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
+    },
+    {
+      "id": "live_e773d6f62eed18",
+      "name": "Deoxys (Normal, Defense, Attack, and Speed Formes) in 5-star Raid Battles",
+      "start": "2026-11-25T06:00",
+      "end": "2026-12-01T22:00",
+      "types": [
+        "Psychic"
+      ],
+      "bonus": "Deoxys (Normal), Deoxys (Defense), Deoxys (Attack), and Deoxys (Speed) will be in five-star raid battles from November 25, 2026 to December 1, 2026.",
+      "category": "raid",
+      "source": "https://leekduck.com/events/deoxys-normal-defense-attack-speed-formes-in-5-star-raid-battles-november-2026/",
+      "catch": true,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
+    },
+    {
+      "id": "live_a05dea9b67d570",
+      "name": "Mega Metagross in Mega Raids",
+      "start": "2026-11-25T06:00",
+      "end": "2026-12-01T22:00",
+      "types": [
+        "Steel",
+        "Psychic"
+      ],
+      "bonus": "Mega Metagross will be in Mega Raids from November 25, 2026 at 6 am to December 1, 2026 at 10 pm local time.",
+      "category": "raid",
+      "source": "https://leekduck.com/events/mega-metagross-in-mega-raids-november-2026/",
+      "catch": true,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
+    },
+    {
+      "id": "live_811885f5466eec",
+      "name": "Deoxys (Normal, Defense, Attack, and Speed Formes) Raid Hour",
+      "start": "2026-11-25T18:00",
+      "end": "2026-11-25T19:00",
+      "types": [
+        "Psychic"
+      ],
+      "bonus": "A Raid Hour featuring Deoxys (Normal, Defense, Attack, and Speed Formes) is scheduled from 6:00 p.m. to 7:00 p.m. local time. During this hour there will be an increased number of five-star raids.",
+      "category": "raid",
+      "source": "https://leekduck.com/events/raidhour20261125/",
+      "catch": true,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
+    },
+    {
+      "id": "live_42ba01d9af4693",
+      "name": "Noibat Spotlight Hour",
+      "start": "2026-11-26T18:00",
+      "end": "2026-11-26T19:00",
+      "types": [
+        "Flying",
+        "Dragon"
+      ],
+      "bonus": "Pokémon Spotlight Hour will feature a different Pokémon and special bonus for one hour at 6:00 p.m. local time.",
+      "category": "event",
+      "source": "https://leekduck.com/events/pokemonspotlighthour2026-11-26/",
+      "catch": true,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
+    },
+    {
+      "id": "live_38ea7cf4b129d3",
+      "name": "Clefable Super Mega Raid Day",
+      "start": "2026-11-28T14:00",
+      "end": "2026-11-28T17:00",
+      "types": [
+        "Fairy"
+      ],
+      "bonus": "An additional 5,000 Stardust from Super Mega Raid Battles; An additional 5,000 XP from Super Mega Raid Battles; Clefable caught from Super Mega Raids will have Mega Level 1 unlocked",
+      "category": "raid",
+      "source": "https://leekduck.com/events/clefable-super-mega-raid-day-2026/",
+      "catch": true,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
+    },
+    {
+      "id": "live_187bf7599014eb",
+      "name": "Dynamax Cryogonal during Max Monday",
+      "start": "2026-11-30T06:00",
+      "end": "2026-11-30T21:00",
+      "types": [
+        "Ice"
+      ],
+      "bonus": "Dynamax Cryogonal may appear in Max Battles from November 30, 2026 through December 6, 2026.",
+      "category": "event",
+      "source": "https://leekduck.com/events/max-mondays-2026-11-30/",
+      "catch": false,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
+    },
+    {
+      "id": "live_a63c4ea016482e",
+      "name": "Max Battle Day",
+      "start": "2026-12-05T14:00",
+      "end": "2026-12-05T17:00",
+      "types": [],
+      "bonus": "The Max Battle Day event will take place on December 5, 2026 from 2 pm to 5 pm. Stay tuned for more details.",
+      "category": "event",
+      "source": "https://leekduck.com/events/max-battle-day-december-2026/",
+      "catch": false,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
+    },
+    {
+      "id": "live_5e1d1a147c2634",
+      "name": "Minior Showers: Geminids 2026",
+      "start": "2026-12-11T17:00",
+      "end": "2026-12-16T23:59",
+      "types": [
+        "Rock",
+        "Flying"
+      ],
+      "bonus": "Increased Stardust for catching Minior; Increased chance to encounter Minior from 5:00 p.m. to 9:00 p.m. local time each day",
+      "category": "event",
+      "source": "https://leekduck.com/events/minior-showers-geminids-2026/",
+      "catch": true,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
+    },
+    {
+      "id": "live_271d1cba56f16f",
+      "name": "December Community Day",
+      "start": "2026-12-12T14:00",
+      "end": "2026-12-13T17:00",
+      "types": [],
+      "bonus": "The December Community Day event will take place on December 12 and December 13, 2026 from 2 pm to 5 pm each day. Stay tuned for more details.",
+      "category": "event",
+      "source": "https://leekduck.com/events/december-communityday2026/",
+      "catch": true,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
+    },
+    {
+      "id": "live_fa9bdcd68c20fb",
+      "name": "Raid Day",
+      "start": "2026-12-19T14:00",
+      "end": "2026-12-19T17:00",
+      "types": [],
+      "bonus": "The Raid Day event will take place on December 19, 2026 from 2 pm to 5 pm. Stay tuned for more details.",
+      "category": "raid",
+      "source": "https://leekduck.com/events/raid-day-december-2026/",
+      "catch": true,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
+    },
+    {
+      "id": "live_05d10aea67f819",
+      "name": "Hatch Day",
+      "start": "2026-12-26T11:00",
+      "end": "2026-12-26T17:00",
+      "types": [],
+      "bonus": "The Hatch Day event will take place on December 26, 2026 from 11 am to 5 pm. Stay tuned for more details.",
+      "category": "event",
+      "source": "https://leekduck.com/events/hatch-day-december-2026/",
+      "catch": false,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
+    },
+    {
+      "id": "live_0ea91dbb3f7da8",
+      "name": "January Community Day Classic",
+      "start": "2027-01-02T14:00",
+      "end": "2027-01-02T17:00",
+      "types": [],
+      "bonus": "The January Community Day Classic event will take place on January 2, 2027 from 2 pm to 5 pm. Stay tuned for more details.",
+      "category": "event",
+      "source": "https://leekduck.com/events/january-communitydayclassic2027/",
+      "catch": true,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
+    },
+    {
+      "id": "live_a2797c71af92ca",
+      "name": "Super Mega Raid Day",
+      "start": "2027-01-09T14:00",
+      "end": "2027-01-09T17:00",
+      "types": [],
+      "bonus": "The Super Mega Raid Day event will take place on January 9, 2027 from 2 pm to 5 pm. Stay tuned for more details.",
+      "category": "raid",
+      "source": "https://leekduck.com/events/super-mega-raid-day-january-2027/",
+      "catch": true,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
+    },
+    {
+      "id": "live_b21f5cfddcc283",
+      "name": "January Community Day",
+      "start": "2027-01-16T14:00",
+      "end": "2027-01-16T17:00",
+      "types": [],
+      "bonus": "The January Community Day event will take place on January 16, 2027 from 2 pm to 5 pm. Stay tuned for more details.",
+      "category": "event",
+      "source": "https://leekduck.com/events/january-communityday2027/",
+      "catch": true,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
+    },
+    {
+      "id": "live_57b0d1514a81cc",
+      "name": "Max Battle Day",
+      "start": "2027-01-23T14:00",
+      "end": "2027-01-23T17:00",
+      "types": [],
+      "bonus": "The Max Battle Day event will take place on January 23, 2027 from 2 pm to 5 pm. Stay tuned for more details.",
+      "category": "event",
+      "source": "https://leekduck.com/events/max-battle-day-january-2027/",
+      "catch": false,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
+    },
+    {
+      "id": "live_3b89a6728bb4dc",
+      "name": "Super Mega Raid Day",
+      "start": "2027-01-30T14:00",
+      "end": "2027-01-30T17:00",
+      "types": [],
+      "bonus": "The Super Mega Raid Day event will take place on January 30, 2027 from 2 pm to 5 pm. Stay tuned for more details.",
+      "category": "raid",
+      "source": "https://leekduck.com/events/super-mega-raid-day-january-30-2027/",
+      "catch": true,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
+    },
+    {
+      "id": "live_16acbbb6ff162a",
+      "name": "February Community Day",
+      "start": "2027-02-06T14:00",
+      "end": "2027-02-06T17:00",
+      "types": [],
+      "bonus": "The February Community Day event will take place on February 6, 2027 from 2 pm to 5 pm. Stay tuned for more details.",
+      "category": "event",
+      "source": "https://leekduck.com/events/february-communityday2027/",
+      "catch": true,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
+    },
+    {
+      "id": "live_bfc13aefc08ed9",
+      "name": "Raid Day",
+      "start": "2027-02-13T14:00",
+      "end": "2027-02-13T17:00",
+      "types": [],
+      "bonus": "The Raid Day event will take place on February 13, 2027 from 2 pm to 5 pm. Stay tuned for more details.",
+      "category": "raid",
+      "source": "https://leekduck.com/events/raid-day-february-2027/",
+      "catch": true,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
+    },
+    {
+      "id": "live_ee12b59e4e010f",
+      "name": "Pokémon GO Tour: Alola - Kaohsiung 2027",
+      "start": "2027-02-18T17:00",
+      "end": "2027-02-21T16:59",
+      "types": [],
+      "bonus": "Pokémon GO Tour returns in February 2027 to celebrate the Alola region from Pokémon Sun, Pokémon Moon, Pokémon Ultra Sun, and Pokémon Ultra Moon.",
+      "category": "event",
+      "source": "https://leekduck.com/events/pokemon-go-tour-alola-kaohsiung-2027/",
+      "catch": false,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
+    },
+    {
+      "id": "live_df12becbd9ca39",
+      "name": "Pokémon GO Tour: Alola - Los Angeles 2027",
+      "start": "2027-02-19T09:00",
+      "end": "2027-02-22T08:59",
+      "types": [],
+      "bonus": "Pokémon GO Tour returns in February 2027 to celebrate the Alola region from Pokémon Sun, Pokémon Moon, Pokémon Ultra Sun, and Pokémon Ultra Moon.",
+      "category": "event",
+      "source": "https://leekduck.com/events/pokemon-go-tour-alola-los-angeles-2027/",
+      "catch": false,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
+    },
+    {
+      "id": "live_801164e5d048e9",
+      "name": "Pokémon GO Tour: Alola - Global 2027",
+      "start": "2027-02-27T00:00",
+      "end": "2027-02-28T23:59",
+      "types": [],
+      "bonus": "Pokémon GO Tour returns in February 2027 to celebrate the Alola region from Pokémon Sun, Pokémon Moon, Pokémon Ultra Sun, and Pokémon Ultra Moon.",
+      "category": "event",
+      "source": "https://leekduck.com/events/pokemon-go-tour-alola-global-2027/",
+      "catch": false,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
+    }
   ]
 }
