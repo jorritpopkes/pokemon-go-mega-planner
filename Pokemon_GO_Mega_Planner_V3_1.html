@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0c1626"><title>Mijn Mega Planner V3.1 • Pokémon GO</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1321;--card:#162338;--card2:#1d2e47;--line:#30425b;--text:#f4f7fe;--muted:#aabbd0;--cyan:#70e4d0;--green:#90e6ac;--gold:#ffd486;--pink:#ffb3c5;--violet:#c8b7ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse 85% 450px at 50% -130px,#243566 0%,#0b1321 95%);color:var(--text);font:15px/1.55 system-ui,-apple-system,Roboto,Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer;touch-action:manipulation}a{color:var(--cyan)}.shell{width:min(920px,100%);padding:20px 14px 90px;margin:auto}header{margin:4px 4px 20px}h1{font-size:clamp(29px,7vw,41px);letter-spacing:-1px;margin:1px 0 4px;line-height:1.14}h2{font-size:20px;line-height:1.25;margin:0}h3{font-size:16px;margin:0}p{margin:6px 0}.kicker{color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase}.muted{color:var(--muted)}small,.tinytext{font-size:12px}.sub{margin:6px 0 0;color:var(--muted)}.tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px;background:#121d31;border:1px solid var(--line);border-radius:17px;padding:5px;position:sticky;top:4px;z-index:15;margin-bottom:20px;box-shadow:0 10px 28px #05091488}.tabs button{background:transparent;border:0;color:var(--muted);padding:11px 3px;font-weight:750;border-radius:12px;font-size:12px}.tabs button.active{background:#304063;color:#fff}.pane{display:none}.pane.active{display:block}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:17px;margin-bottom:12px}.card.soft{background:var(--card2)}.notice{border:1px solid #427e76;background:#183c46;border-radius:14px;padding:11px 14px;margin-bottom:14px;font-size:13px}.notice.warn{border-color:#8c7042;background:#382c29}.sectionHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:22px 0 10px}.pill{display:inline-block;padding:4px 9px;border-radius:100px;font-weight:700;font-size:11px;letter-spacing:.2px;background:#34435b;color:#e6edfb;white-space:nowrap}.pill.good{background:#214938;color:#a6f7c7}.pill.hold{background:#51402a;color:#ffe3a6}.pill.check{background:#3b354d;color:#d3c6fa}.pill.bad{background:#552f38;color:#ffc0c7}.row{display:flex;align-items:center;gap:10px}.between{justify-content:space-between}.grow{flex:1;min-width:0}.top{align-items:flex-start}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{padding:13px;border-radius:14px;background:#1c2c45}.metric strong{display:block;font-size:24px;line-height:1.3}.metric small{color:var(--muted)}.mainAction{border-color:#3d8c81;background:linear-gradient(145deg,#193e45,#1a2b44)}.actionTitle{font-size:21px;font-weight:800;line-height:1.3}.actionExplanation{color:#d4e2ec;margin:10px 0}.items{display:grid;gap:9px}.mini{padding:12px 14px;background:#1a2940;border:1px solid #31445a;border-radius:13px}.mini h3{margin:0 0 4px}.mini p{font-size:13px;margin:3px 0;color:var(--muted)}.btn{border:1px solid #465878;border-radius:12px;background:#2b3e59;color:white;padding:10px 13px;font-weight:760;min-height:42px}.btn.primary{background:#7658ca;border-color:#9579ee}.btn.cyan{background:#1c716e;border-color:#359f93}.btn.ghost{background:transparent}.btn.small{font-size:12px;padding:7px 10px;min-height:35px}.btn:disabled{opacity:.45;cursor:default}.controls{display:flex;gap:8px;flex-wrap:wrap}.control{display:flex;flex-direction:column;gap:5px;font-size:13px;font-weight:700}.control select,.control input,.control textarea{border:1px solid var(--line);border-radius:11px;background:#111e31;color:white;padding:11px;width:100%;min-width:0}.control textarea{min-height:85px}.control select{min-height:43px}.controlBar{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;margin:6px 0 16px}.switch{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted)}input[type=checkbox]{accent-color:#a2edda;width:17px;height:17px}.schedule{display:grid;gap:8px}.scheduleEntry{display:grid;grid-template-columns:64px 1fr;gap:11px;border:1px solid var(--line);background:var(--card);border-radius:14px;padding:12px}.dateBadge{text-align:center;background:#23344e;border-radius:11px;padding:8px 4px;font-size:13px;line-height:1.3}.dateBadge strong{display:block;font-size:22px}.headEvents{color:var(--muted);font-size:12px;margin:4px 0}.scrollx{overflow-x:auto;display:flex;gap:7px;scrollbar-width:thin;margin:9px 0 13px}.datechip{flex:0 0 64px;min-width:64px;color:var(--text);border:1px solid var(--line);background:var(--card);border-radius:12px;padding:8px 4px;text-align:center}.datechip.active{outline:2px solid var(--cyan);background:#23434e}.datechip strong{display:block;font-size:20px}.datechip small{display:block;color:var(--muted)}.eventCard{padding:12px 14px;background:#1c2b43;border:1px solid var(--line);border-radius:12px;margin-bottom:8px}.eventCard .name{font-size:15px;font-weight:780}.line{height:1px;background:var(--line);margin:12px 0}.tagRow{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}.tag{background:#273a56;padding:3px 8px;border-radius:8px;font-size:12px;color:#c5d8ed}.megaGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:10px}.mega{margin:0}.mega .meta{font-size:12px;color:var(--muted)}.mega .cmds{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.split{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start}.typeGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.typeCard{border:1px solid var(--line);border-radius:12px;padding:11px;background:var(--card)}.typeCard span{display:block;color:var(--muted);font-size:12px}.dialog{position:fixed;inset:0;background:#030816d9;display:none;align-items:end;justify-content:center;padding:10px;z-index:50}.dialog.show{display:flex}.modal{width:min(540px,100%);max-height:93dvh;overflow:auto;border-radius:18px;background:#1a2940;padding:18px;border:1px solid #506582}.formGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:15px 0}.span2{grid-column:1/-1}.footer{color:var(--muted);font-size:11px;margin:30px 6px}.dot{width:8px;height:8px;border-radius:20px;background:var(--cyan);display:inline-block}.empty{color:var(--muted);padding:12px 0}.checkitem{display:grid;grid-template-columns:1fr auto;gap:7px;align-items:center;border-bottom:1px solid var(--line);padding:10px 0}.checkitem:last-child{border:0}.highlight{color:var(--cyan)}.dataNote{color:var(--muted);font-size:12px}.danger{border-color:#9b5361!important;color:#ffc7d0!important}.alert{color:#ffdb9c}
+@media(max-width:500px){.shell{padding:15px 11px 75px}.card{padding:14px}.grid2{grid-template-columns:1fr 1fr}.scheduleEntry{grid-template-columns:54px 1fr;gap:8px;padding:10px}.dateBadge strong{font-size:20px}.controlBar{grid-template-columns:1fr}.formGrid{grid-template-columns:1fr}.span2{grid-column:auto}.typeGrid{grid-template-columns:1fr 1fr}}
+
+.v3meta{font-size:12px;color:var(--muted);line-height:1.5;margin:7px 0}
+.v3confidence{display:inline-flex;font-size:11px;padding:3px 7px;border:1px solid var(--line);border-radius:100px;margin:6px 0}
+.v3confidence.known{color:var(--green);border-color:#3e846b}
+.v3confidence.partial{color:var(--gold);border-color:#93763f}
+.v3confidence.unknown{color:var(--muted)}
+.v3details{font-size:12px;line-height:1.6;color:var(--muted);margin-top:7px}
+.v3source{color:var(--cyan);text-decoration:underline;text-underline-offset:3px}
+#v3TrustSummary{padding:12px 15px;margin-bottom:12px}
+#v3TrustCounts{margin-top:5px}
+
+/* V3.1: telefoonvriendelijke simulatie, zonder aanpassing van bestaande opslag */
+.buildTag{display:inline-block;margin-top:6px;padding:2px 9px;border:1px solid #3d8276;border-radius:99px;color:var(--cyan);font-size:11px;font-weight:800}
+.v31notice{border-color:#365a7b;background:#15293f;color:#dae6f8;font-size:12px}
+.v31action{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin:5px 0 7px}
+.v31meta{font-size:12px;color:var(--muted);margin-top:3px}
+.v31progress{font-size:12px;color:var(--cyan);margin-top:4px}
+.v31today{border:1px solid #407f77;border-radius:15px;padding:15px;background:linear-gradient(135deg,#173d42,#1c2942)}
+.v31hint{border:1px solid #626046;border-radius:11px;background:#313128;padding:9px 11px;font-size:12px;color:#ffedb5}
+.v31quickform{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.v31quickform label{min-width:0}
+.v31quickform input{width:100%;padding:12px;border-radius:9px;background:#111e31;color:white;border:1px solid #516687}
+@media(max-width:500px){.v31quickform{grid-template-columns:1fr 1fr}.v31action .btn{padding:5px 8px}}
+</style></head><body>
+<div class="shell">
+<header><div class="kicker">Jouw Pokémon GO tools</div><h1>Mega Planner <span style="color:var(--cyan)">✦</span></h1><span class="buildTag">V3.1 · slimme planning</span><p class="sub">Elke dag de juiste Mega. Zonder onnodig Mega Energy te verspillen.</p></header>
+<nav class="tabs" aria-label="Navigatie"><button class="active" data-tab="today">⚡ Vandaag</button><button data-tab="plan">📅 Planning</button><button data-tab="megas">🐉 Mijn Mega's</button><button data-tab="settings">⚙️ Meer</button></nav>
+<section class="pane active" id="today">
+<div class="notice" id="feedStatus">📅 Evenementen worden gecontroleerd...</div>
+<div class="card" id="v3TrustSummary"><b>🔎 Betrouwbaarheid van evenementgegevens</b><p class="tinytext muted">We scheiden wilde spawns van raids, research, eieren en Max Battles. Alleen bekende wilde spawns leveren standaard Candy XL-adviezen op.</p><div id="v3TrustCounts" class="tinytext muted">Brongegevens laden...</div></div>
+<div class="card mainAction" id="todayMain"></div>
+<div class="grid2" id="todayStats"></div>
+<div class="sectionHead"><h2>🟡 Bewaren voor later</h2><span class="pill" id="holdCount"></span></div><div class="items" id="holdList"></div>
+<div class="sectionHead"><h2>🔁 Gratis levelen</h2><span class="pill">Alleen als FREE</span></div><div class="items" id="cycleList"></div>
+<div class="sectionHead"><h2>🔍 Nog controleren</h2></div><div id="unknownList" class="items"></div>
+<div class="card" style="margin-top:19px"><b>Hoe werkt dit?</b><p class="muted" style="font-size:13px">Controleer in Pokémon GO of een Mega gratis is. Tik hier op <b>Is GRATIS</b> nadat je dat hebt gezien. Evolueer je hem echt? Tik op <b>Net geëvolueerd</b>. Dan worden de volgende planningen herberekend.</p></div>
+</section>
+<section class="pane" id="plan"><div class="sectionHead"><div><h2>📅 De komende 30 dagen</h2><p class="muted tinytext">Wat kan ik gebruiken zonder een volgend evenement te missen?</p></div></div>
+<div class="card"><div class="row between" style="margin-bottom:9px"><b>Waarop optimaliseren?</b><span class="pill" id="objectiveLabel">Candy XL</span></div><div class="controls"><button id="goalXL" class="btn small cyan">🍬 Candy XL eerst</button><button id="goalLevel" class="btn small ghost">📈 Mega Levels eerst</button></div><p class="tinytext muted">We houden rekening met jouw Mega Levels, de gratis cooldown en belangrijke evenementen. Dit zijn adviezen, geen gegarandeerde uitkomsten.</p></div>
+<div class="controlBar"><label class="switch"><input id="onlyImportant" type="checkbox" checked> Alleen belangrijke evenementen</label><button id="refreshFeed" class="btn small ghost">↻ Evenementen verversen</button></div>
+<p class="tinytext muted">✅ Gepubliceerde wilde spawns · 🟡 Afgeleid uit evenementtitel · ⚠️ Onvolledige informatie. Raidbossen worden nooit als wilde spawns behandeld.</p>
+<div class="notice v31notice">🧠 <b>30-dagensimulatie:</b> een gepland advies is nog geen echte Mega Evolution. We rekenen uitsluitend met gratis beschikbare Megas en bewaren geschikte Megas voor belangrijkere evenementen. De simulator plant maximaal één activering per dag; Pokémon GO kan afwijken.</div><div id="agendaList" class="schedule"></div>
+<div class="sectionHead"><h2>🔎 Bekijk een specifieke dag</h2></div><div class="scrollx" id="dateStrip"></div><div id="dayDetail"></div>
+</section>
+<section class="pane" id="megas"><div class="row between" style="margin-bottom:12px"><div><h2>🐉 Mijn Mega's</h2><p class="muted tinytext">Teller loopt automatisch +1 per evolutiedag. Vul een resterende cooldown rechtstreeks in. Nieuwe Mega? Tik op Net geëvolueerd na de echte activatie. Een Mega blijft 8 uur actief; de cooldown begint daarna, of eerder bij een wissel. Gebruik Mega gestopt als je een wissel niet registreert.</p></div><button id="addMega" class="btn primary small">+ Toevoegen</button></div>
+<div class="controlBar"><label class="control"><span>Zoek Pokémon of type</span><input id="megaSearch" placeholder="Bijv. Rayquaza of Psychic"></label><label class="control"><span>Filter</span><select id="megaFilter"><option value="all">Alle Mega's</option><option value="free">Nu GRATIS</option><option value="unknown">Nog controleren</option><option value="hold">Te bewaren</option></select></label></div>
+<div class="megaGrid" id="megaGrid"></div>
+<div class="sectionHead"><h2>🍬 Jouw type-dekking</h2></div><div id="typeCoverage" class="typeGrid"></div>
+</section>
+<section class="pane" id="settings"><div class="card"><h2>Evenementen en bron</h2><p class="muted">V3.1 haalt de publieke evenementdetails rechtstreeks op (Leek Duck-afgeleide bron), met GitHub als reserve. De types komen uit de PokéAPI-Pokédex. Wilde spawns, raids, research, eieren en Max Battles worden gescheiden. Wat niet bekend is, blijft onbekend: geen verzonnen adviezen.</p><div id="feedDetail" class="dataNote"></div><button id="forceSync" class="btn cyan">↻ Nu vernieuwen</button><p class="dataNote">We wijzigen je Pokémon GO-account nooit rechtstreeks. Je Mega-gegevens blijven lokaal op deze telefoon in Chrome.</p></div>
+<div class="card"><h2>Back-up maken</h2><p class="muted">Maak af en toe een back-up van jouw Mega's en tijdstippen, bijvoorbeeld voordat je van browser wisselt.</p><div class="controls"><button id="exportBackup" class="btn">⬇ Download back-up</button><button id="importBackup" class="btn ghost">⬆ Back-up terugzetten</button><input type="file" id="importFile" accept="application/json,.json" hidden></div></div>
+<div class="card"><h2>Zelf een evenement toevoegen</h2><p class="muted">Handig als een evenement ontbreekt of je zelf iets wilt plannen.</p><button id="addEvent" class="btn">+ Eigen evenement</button><div id="customEvents" class="items" style="margin-top:12px"></div></div>
+<div class="card"><h2>Wanneer begint de Mega-cooldown?</h2><p class="muted">Een Mega Evolution duurt maximaal 8 uur. Pas wanneer die eindigt, gaat de rustperiode van 7, 5, 3 of 1 dag lopen. Registreer je een andere Mega Evolution, dan eindigt de vorige automatisch. Een eerdere handmatige stop kun je bij de actieve Mega aangeven met <b>Mega gestopt</b>. Controleer de echte tijd altijd in Pokémon GO.</p></div><div class="card"><h2>Over deze planning</h2><p class="muted">De planner maakt een voorzichtige vooruitplanning van belangrijke evenementen en gratis Mega-activeringen. Hij schat welke keuze het meeste oplevert op basis van type-overlap, Mega Level, eventprioriteit en de geregistreerde cooldown. Hij kan niet voorspellen hoeveel je gaat vangen, welk weer actief is of of elke evenementbonus extra Mega Candy geeft. Bij ontbrekende cooldowns toont hij <b>Controleren</b> in plaats van te doen alsof iets gratis is.</p><button id="showAllEvents" class="btn ghost small">Alle evenementen bekijken</button><div id="allEventsList" style="display:none"></div></div></section>
+<footer class="footer">Fanproject voor persoonlijk gebruik · geen officiële Pokémon GO-app · geen login vereist · de live evenementbron kan vertraagd of onvolledig zijn.</footer>
+</div><div class="dialog" id="dialog" role="dialog" aria-modal="true"><div class="modal"><div class="row between"><h2 id="modalTitle">Wijzigen</h2><button id="closeModal" class="btn small ghost">✕</button></div><div id="modalBody"></div></div></div>
+<script>
+(()=>{'use strict';
+const KEY='pogo-mega-planner-v1';
+const TYPES=['Normal','Fire','Water','Electric','Grass','Ice','Fighting','Poison','Ground','Flying','Psychic','Bug','Rock','Ghost','Dragon','Dark','Steel','Fairy'];
+const baseMegas=[
+{id:'my',name:'Mega Mewtwo Y',types:['Psychic'],level:4,energy:4400,uses:30,last:'',owned:true,note:'Super Max confirmed; estimate 4,400 Y Energy after upgrade. Separate X/Y progression.'},
+{id:'mx',name:'Mega Mewtwo X',types:['Psychic','Fighting'],level:1,energy:3600,uses:null,last:'',owned:true,note:'CP 4016; separate X Mega progress. Save X Energy toward 5,000.'},
+{id:'ray',name:'Mega Rayquaza',types:['Dragon','Flying','Psychic'],level:0,energy:null,uses:0,last:'',owned:false,note:'Shiny Rayquaza chosen; first Mega NOT performed as of Nov 16. Dragon Ascent + 400 Mega Energy required. Two Meteorites reported.'},
+{id:'groudon',name:'Primal Groudon',types:['Fire','Grass','Ground'],level:1,energy:0,uses:null,last:'',owned:true,note:'No energy left. Reserve next FREE activation for Nov 19 starters, if ready.'},
+{id:'kyogre',name:'Primal Kyogre',types:['Water','Electric','Bug'],level:1,energy:40,uses:null,last:'',owned:true,note:'Save 40 energy; FREE only.'},
+{id:'diancie',name:'Mega Diancie',types:['Rock','Fairy'],level:1,energy:44,uses:null,last:'',owned:true,note:'Save 44 energy; FREE only.'},
+{id:'lucario',name:'Mega Lucario',types:['Fighting','Steel'],level:1,energy:null,uses:null,last:'',owned:true,note:'Reserve free activation for Nov 21 Pawniard Community Day.'},
+{id:'gengar',name:'Mega Gengar',types:['Ghost','Poison'],level:1,energy:null,uses:null,last:'',owned:true,note:'Useful Nov 26–30 for Ghost spawns.'},
+{id:'gardevoir',name:'Mega Gardevoir',types:['Psychic','Fairy'],level:3,energy:null,uses:30,last:'',owned:true,note:'High-level Fairy and Psychic coverage.'},
+{id:'beedrill',name:'Mega Beedrill',types:['Bug','Poison'],level:1,energy:null,uses:null,last:'',owned:true,note:'Lower priority; cycle for free.'},
+{id:'raichu',name:'Mega Raichu (verify form)',types:['Electric'],level:1,energy:null,uses:null,last:'',owned:true,note:'Please check which Raichu Mega form and update type(s) in the editor.'},
+{id:'metagross',name:'Mega Metagross · target',types:['Steel','Psychic'],level:0,energy:0,uses:0,last:'',owned:false,note:'Not yet unlocked. Mega raids Nov 25–Dec 1. Your five Metagross know Meteor Mash.'}
+];
+const src={dyn:'https://pokemongo.com/en/news/dynamax-trails-eternamax-eternatus-2026',paw:'https://pokemongo.com/news/communityday-november-2026-pawniard',tw:'https://pokemongo.com/news/twilight-wishes-2026',clef:'https://pokemongo.com/en/news/clefable-super-mega-raid-day-2026',future:'https://pokemongo.com/news/save-the-date-s25',raids:'https://pokemongohub.net/post/event/pokemon-go-november-2026-events/',noibat:'https://leekduck.com/events/pokemonspotlighthour2026-11-26/'};
+const baseEvents=[
+{id:'minior',name:'Minior Showers',start:'2026-11-16T00:00',end:'2026-11-19T23:59',types:['Rock','Flying'],bonus:'Minior spawns; no extra Candy multiplier verified.',category:'event',source:src.raids,catch:true,notes:'Rayquaza boosts Flying and Diancie boosts Rock. Prefer an already-active Mega, without wasting rare energy.'},
+{id:'dynamax',name:'Dynamax Trails',start:'2026-11-16T10:00',end:'2026-11-23T20:00',types:[],bonus:'More Max Battles, Power Spots and possible Max Particles from catches.',category:'event',source:src.dyn,catch:false,notes:'Mega Evolution is not required for the Eternamax Max Battles themselves.'},
+{id:'cress',name:'Cresselia + Darkrai 5★ raids',start:'2026-11-16T10:00',end:'2026-11-24T10:00',types:['Psychic','Dark'],bonus:'Raid catches. Match Psychic for Cresselia XL; Darkrai is Dark-type.',category:'raid',source:src.raids,catch:true,notes:'Mewtwo Y for Psychic Cresselia; no matching Dark Mega confirmed in your starter list.'},
+{id:'banette',name:'Mega Banette raids',start:'2026-11-16T10:00',end:'2026-11-24T10:00',types:['Ghost'],bonus:'Mega Banette Energy; catch Banette after raid.',category:'raid',source:src.raids,catch:true,notes:'Mega Gengar matches Ghost; plan a group rather than a guaranteed solo.'},
+{id:'raid18',name:'Cresselia + Darkrai Raid Hour',start:'2026-11-18T18:00',end:'2026-11-18T19:00',types:['Psychic','Dark'],bonus:'Featured 5★ raids.',category:'raid',source:src.raids,catch:true,notes:'Use Super Max Mewtwo Y to boost Psychic Cresselia catches.'},
+{id:'starters',name:'Grookey / Scorbunny / Sobble Spotlight',start:'2026-11-19T18:00',end:'2026-11-19T19:00',types:['Grass','Fire','Water'],bonus:'2× catch Candy.',category:'event',source:src.dyn,catch:true,notes:'Primal Groudon covers Grass + Fire (2 of 3); Kyogre covers Water. Use Groudon if FREE, otherwise Kyogre if FREE.'},
+{id:'eternamax',name:'Eternamax Eternatus returns',start:'2026-11-21T11:00',end:'2026-11-21T14:00',types:[],bonus:'Eternatus Candy & Candy XL from Max Battle rewards.',category:'event',source:src.dyn,catch:false,notes:'Do not reserve a Mega specifically for the battle rewards. Use your Dynamax/Gigantamax team.'},
+{id:'pawniard',name:'Pawniard Community Day',start:'2026-11-21T14:00',end:'2026-11-21T17:00',types:['Dark','Steel'],bonus:'2× catch Candy and 2× catch Candy XL chance (level 31+).',category:'event',source:src.paw,catch:true,notes:'Mega Lucario boosts Steel-type Pawniard. Evolve Bisharp for exclusive move if desired.'},
+{id:'twilight',name:'Twilight Wishes',start:'2026-11-24T10:00',end:'2026-11-30T20:00',types:['Fairy','Water','Psychic','Ghost'],bonus:'Clefairy, Staryu, Elgyem; later Ghost encounters. GO Pass can unlock 2× catch Stardust.',category:'event',source:src.tw,catch:true,notes:'Gardevoir for Fairy/Psychic; Mewtwo Y for Psychic; Kyogre for Water; Gengar for Ghost from Nov 26.'},
+{id:'deoxys',name:'Deoxys 5★ raids (all forms)',start:'2026-11-25T10:00',end:'2026-12-01T10:00',types:['Psychic'],bonus:'Psychic-type raid catches; Attack Forme is an attractive Hydreigon solo target.',category:'raid',source:src.raids,catch:true,notes:'Use Super Max Mewtwo Y while catching Deoxys for Psychic Candy XL bonus.'},
+{id:'megagross',name:'Mega Metagross raids',start:'2026-11-25T10:00',end:'2026-12-01T10:00',types:['Steel','Psychic'],bonus:'Farm Mega Metagross Energy. Metagross catch is Steel/Psychic.',category:'raid',source:src.raids,catch:true,notes:'Use Mewtwo Y for Psychic catch XL and your Hydreigon to battle. Best tackled in a group.'},
+{id:'noibat',name:'Noibat Spotlight Hour',start:'2026-11-26T18:00',end:'2026-11-26T19:00',types:['Flying','Dragon'],bonus:'2× catch Candy.',category:'event',source:src.noibat,catch:true,notes:'Reserve Mega Rayquaza, if available for FREE by then. Even at Base Level it grants matching Candy.'},
+{id:'clefable',name:'Super Mega Clefable Raid Day',start:'2026-11-28T14:00',end:'2026-11-28T17:00',types:['Fairy'],bonus:'Mega Clefable debut; up to six free Raid Passes; Mega Level 1 unlocked on caught Clefable.',category:'raid',source:src.clef,catch:true,notes:'Use Level 3 Mega Gardevoir for Fairy Candy XL on catches, if free.'},
+{id:'maxdec',name:'Max Battle Day · details TBA',start:'2026-12-05T14:00',end:'2026-12-05T17:00',types:[],bonus:'Date confirmed; boss and bonuses not yet announced.',category:'tba',source:src.future,catch:false,notes:'Re-evaluate after official announcement.'},
+{id:'minior2',name:'Minior Showers · Geminids',start:'2026-12-11T17:00',end:'2026-12-13T23:59',types:['Rock','Flying'],bonus:'Scheduled by event calendars; full bonuses not confirmed.',category:'tba',source:'https://leekduck.com/events',catch:true,notes:'Rayquaza or Diancie, subject to event details.'},
+{id:'deccom',name:'December Community Day weekend',start:'2026-12-12T14:00',end:'2026-12-13T17:00',types:[],bonus:'Dates confirmed; featured Pokémon/types are still TBA.',category:'tba',source:src.future,catch:true,notes:'Reserve matching free Megas once lineup is announced; do not preselect types yet.'},
+{id:'raidd',name:'Raid Day · details TBA',start:'2026-12-19T14:00',end:'2026-12-19T17:00',types:[],bonus:'Date confirmed; boss not announced.',category:'tba',source:src.future,catch:true,notes:'Choose a matching Mega after the official reveal.'},
+{id:'hatch',name:'Hatch Day · details TBA',start:'2026-12-26T11:00',end:'2026-12-26T17:00',types:[],bonus:'Date confirmed; featured Pokémon not announced.',category:'tba',source:src.future,catch:false,notes:'Mega catch bonuses are not hatch bonuses.'},
+{id:'janclassic',name:'Community Day Classic · TBA',start:'2027-01-02T14:00',end:'2027-01-02T17:00',types:[],bonus:'Date confirmed; featured species TBA.',category:'tba',source:src.future,catch:true,notes:'Keep Mega options free for the featured type.'},
+{id:'janmega',name:'Super Mega Raid Day · TBA',start:'2027-01-09T14:00',end:'2027-01-09T17:00',types:[],bonus:'Date confirmed; featured species TBA.',category:'tba',source:src.future,catch:true,notes:'Update after official details.'},
+{id:'jancomm',name:'January Community Day · TBA',start:'2027-01-16T14:00',end:'2027-01-16T17:00',types:[],bonus:'Date confirmed; featured species TBA.',category:'tba',source:src.future,catch:true,notes:'Update after official details.'}
+];
+const $=id=>document.getElementById(id), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
+const clone=x=>JSON.parse(JSON.stringify(x));
+const valid=(d)=>d instanceof Date && !isNaN(d.getTime());
+const dt=s=>{let d=s?new Date(s):null;return valid(d)?d:null};
+const fmtDay=d=>new Intl.DateTimeFormat('nl-NL',{weekday:'short',day:'numeric',month:'short'}).format(d);
+const fmtTime=d=>new Intl.DateTimeFormat('nl-NL',{hour:'2-digit',minute:'2-digit'}).format(d);
+const dayKey=d=>[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');
+const localDatetime=d=>d?dayKey(d)+'T'+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0'):'';
+const dayStart=d=>new Date(d.getFullYear(),d.getMonth(),d.getDate(),0,0,0);
+const daysAfter=(d,n)=>{let a=dayStart(d);a.setDate(a.getDate()+n);return a};
+const dayEnd=d=>{let a=daysAfter(d,1);return new Date(a.getTime()-1)};
+const dateFromKey=s=>dt(s+'T12:00');
+let db=load(),feedState='laden',feedUpdated=null,goal=localStorage.getItem('pogo-mega-goal')||'xl',selected=dayKey(new Date()),tab='today',importantOnly=true;
+function load(){try{let b=JSON.parse(localStorage.getItem(KEY));if(b&&Array.isArray(b.megas)&&Array.isArray(b.events))return b}catch(e){}return {megas:clone(baseMegas),events:clone(baseEvents)}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){alert('Opslaan mislukt. Maak een back-up in Meer.')}render()}
+// Een Mega Evolution duurt maximaal 8 uur. Daarna pas begint de rustperiode.
+// Een nieuwe Mega Evolution beëindigt de vorige meteen. De ingelogde datums
+// blijven compatibel met eerdere V2-opslag (m.last = starttijd).
+const MEGA_DURATION_MS=8*60*60*1000;
+function activeMega(m){return m?.owned&&+m.level>0}
+function coolDays(m){return [null,7,5,3,1][+m.level]??7}
+function megaEndAt(m){
+  let start=dt(m.last);if(!start)return null;
+  let end=start.getTime()+MEGA_DURATION_MS;
+  let manual=dt(m.lastEnd);
+  if(m.lastEndFor===m.last&&manual&&manual>=start&&manual.getTime()<=end)end=Math.min(end,manual.getTime());
+  // Als je de volgende Mega in de planner registreert, herkent deze functie
+  // de tussentijdse wissel ook voor bestaande, oudere registraties.
+  for(let other of db.megas){
+    if(other.id===m.id)continue;
+    let next=dt(other.last);
+    if(next&&next>start&&next.getTime()<end)end=next.getTime();
+  }
+  return new Date(end);
+}
+function megaActiveAt(m,t){let start=dt(m.last),end=megaEndAt(m);return !!(start&&end&&start<=t&&t<end)}
+function freeAt(m){let end=megaEndAt(m);return end&&activeMega(m)?new Date(end.getTime()+coolDays(m)*86400000):null}
+function isVerifiedFree(m,t){let v=dt(m.freeVerifiedAt);return v&&v.getTime()<=t.getTime()&&(!dt(m.last)||v>dt(m.last))}
+function stateAt(m,t){
+  if(!activeMega(m))return{kind:'locked',msg:'Nog niet ontgrendeld'};
+  let end=megaEndAt(m),ready=freeAt(m);
+  if(megaActiveAt(m,t))return{kind:'active',msg:'ACTIEF tot '+fmtDay(end)+' '+fmtTime(end)+' · GRATIS vanaf '+fmtDay(ready)+' '+fmtTime(ready),end,free:ready};
+  if(isVerifiedFree(m,t))return{kind:'free',msg:'GRATIS (zelf gecontroleerd)'};
+  if(!ready)return{kind:'unknown',msg:'Cooldown onbekend'};
+  return ready<=t?{kind:'free',msg:'GRATIS vanaf '+fmtDay(ready)+' '+fmtTime(ready)}:{kind:'waiting',msg:'GRATIS '+fmtDay(ready)+' '+fmtTime(ready),free:ready};
+}
+function rarityScore(e){let cat=String(e.category||'').toLowerCase(),name=String(e.name||'').toLowerCase();if(e.manual||String(e.id||'').startsWith('customevent_'))return 8;if(/community day/.test(name))return 10;if(/spotlight hour|spotlight/.test(name))return 9;if(/raid day|super mega raid day/.test(name))return 9;if(/raid hour/.test(name))return 8;if(/raid battles|mega raids|5.?star raids/.test(name))return 6;if(/max battle|eternamax/.test(name))return 3;if(/tour|safari|wild area|go fest/.test(name))return 7;if(cat==='tba')return 5;if(/event|raids/.test(cat))return 4;return 2}
+function isBackground(e){let text=(String(e.name||'')+' '+String(e.category||'')).toLowerCase();return /adidas|go battle league|league|cup|timed research|paid research|go pass|ticket|web store|collection challenge|showcase|special research|daily adventure|bonus hours|egg pool|pokemon concierge/.test(text)}
+function isMainEvent(e){let start=dt(e.start),end=dt(e.end),length=start&&end?(end-start)/86400000:0;if(e.manual||String(e.id||'').startsWith('customevent_'))return true;if(isBackground(e)||/twilight trails/i.test(String(e.name||'')))return false;if(length>14&&rarityScore(e)<8)return false;return rarityScore(e)>=6 || /spotlight|raid|community|twilight wishes|dynamax trails|eternamax/i.test(String(e.name||''))}
+function activeOn(e,d){let s=dt(e.start),f=dt(e.end);return !!(s&&f&&s<=dayEnd(d)&&f>=dayStart(d))}
+function eventsFor(d,filter=true){return db.events.filter(e=>activeOn(e,d)&&(!filter||isMainEvent(e))).sort((a,b)=>rarityScore(b)-rarityScore(a)||String(a.start).localeCompare(String(b.start)))}
+function typesFor(e){
+  // Vanaf V3 mogen raid-, research- of Max Battle-types niet als wild spawn meetellen.
+  if(e.schemaVersion===3)return Array.isArray(e.wildTypes)?e.wildTypes.filter(t=>TYPES.includes(t)):[];
+  if(e.manual||String(e.id||'').startsWith('customevent_'))return Array.isArray(e.types)?e.types.filter(t=>TYPES.includes(t)):[];
+  return [];
+}
+function matching(m,e){return typesFor(e).filter(t=>(m.types||[]).includes(t))}
+function xl(m){return [0,0,10,25,30][+m.level]??0}
+function candy(m){return [0,1,1,2,3][+m.level]??0}
+function useful(e){return !!e.catch && typesFor(e).length>0}
+function score(m,e){let matched=matching(m,e);if(!activeMega(m)||!matched.length||!useful(e))return -1;let p=rarityScore(e);let weights=goal==='xl' ? 6*xl(m)+14*candy(m) : 2*xl(m)+8*candy(m)+(m.level<3?180:0);let cover=(matched.length-1)*16;let ambiguity=typesFor(e).length>4?Math.min(25,typesFor(e).length*3):0;let confidenceDiscount=e.confidence==='title'?65:e.confidence==='legacy'?110:0;return p*100+weights+cover-ambiguity-confidenceDiscount}
+function bestFor(e,t){if(!useful(e))return null;let c=db.megas.filter(activeMega).map(m=>({m,pts:score(m,e),st:stateAt(m,t)})).filter(x=>x.pts>0);c.sort((a,b)=>b.pts-a.pts);if(!c.length)return null;let avail=c.filter(x=>x.st.kind==='active'||x.st.kind==='free');return avail[0]||c[0]}
+function highValueFuture(m,d){let until=daysAfter(d,coolDays(m));let matches=db.events.filter(e=>{let s=dt(e.start);if(!(s&&s>dayEnd(d)&&s<until&&rarityScore(e)>=8&&useful(e)&&matching(m,e).length>0))return false;let best=db.megas.filter(activeMega).map(x=>({x,value:score(x,e)})).sort((a,b)=>b.value-a.value)[0];return best&&best.x.id===m.id});matches.sort((a,b)=>score(m,b)-score(m,a)||dt(a.start)-dt(b.start));return matches[0]||null}
+function opportunity(m,d){let future=highValueFuture(m,d),s=stateAt(m,dayKey(d)===dayKey(new Date())?new Date():d);if(s.kind==='active')return{kind:'active',msg:'Mega actief; wacht met wisselen zolang je de bonus nodig hebt'};if(future && (s.kind==='free'||s.kind==='unknown'))return{kind:'hold',event:future,msg:'Bewaren voor '+fmtDay(dt(future.start))};if(s.kind==='free'&& +m.level<3)return{kind:'cycle',msg:'Gratis Mega-progressie'};if(s.kind==='free'&&+m.level===3)return{kind:'available',msg:'GRATIS; inzet bij passend evenement'};if(s.kind==='free'&&+m.level===4)return{kind:'available',msg:'Super Max; alleen activeren bij een bonus'};return{kind:s.kind,msg:s.msg}}
+function cardStatus(kind){return kind==='active'||kind==='free'||kind==='cycle'?'good':kind==='hold'?'hold':kind==='unknown'?'check':kind==='waiting'?'bad':'check'}
+function evSummary(e){let a=dt(e.start),b=dt(e.end);if(!a)return '';return fmtDay(a)+' '+fmtTime(a)+(b&&dayKey(a)===dayKey(b)?'–'+fmtTime(b):'')}
+function eventNote(e){let b=e.bonus||'';return b&&b.length>145?b.slice(0,145)+'…':b}
+function nextBigEvent(d){return db.events.filter(e=>{let a=dt(e.start);return a && a>=dayStart(d) && a<daysAfter(d,30) && rarityScore(e)>=8 && useful(e)}).sort((a,b)=>dt(a.start)-dt(b.start))}
+function renderToday(){let n=new Date(), today=dayStart(n),evs=eventsFor(today),relevant=evs.filter(useful),headline=relevant.sort((a,b)=>rarityScore(b)-rarityScore(a))[0];let best=headline?bestFor(headline,n):null;let main='';if(best){let st=best.st,k=st.kind;main=`<div class="row between top"><div class="kicker">Beste evenementkeuze vandaag</div><span class="pill ${cardStatus(k)}">${k==='active'?'ACTIEF':k==='free'?'GRATIS':k==='waiting'?'COOLDOWN':'CONTROLEREN'}</span></div><div class="actionTitle" style="margin:8px 0">${esc(best.m.name)}</div><p class="muted">Voor: <b>${esc(headline.name)}</b></p><div class="v3meta">${eventEvidence(headline)}</div><p class="actionExplanation">Past bij ${esc(matching(best.m,headline).join(' + '))}. Mega Level ${best.m.level}: +${candy(best.m)} gewone Candy en ${xl(best.m)} procentpunt extra XL-kans bij passende vangsten.</p><p class="alert tinytext">${k==='active'?'Deze Mega is op dit moment actief volgens je geregistreerde begintijd. Hij kan zijn bonus nu leveren.':k==='free'?'Gratis beschikbaar volgens jouw registratie.':k==='unknown'?'Controleer in Pokémon GO of deze Mega GRATIS is.':'Niet gratis volgens huidige cooldown. Gebruik eventueel een andere passende Mega.'}</p><div class="controls"><button class="btn cyan" data-openmega="${esc(best.m.id)}">Bekijk ${esc(best.m.name)}</button><button class="btn ghost" data-tabtarget="plan">Hele planning</button></div>`}else{let ray=db.megas.find(m=>m.id==='ray');main=ray&&!activeMega(ray)?`<div class="kicker">Nieuw Mega-project</div><div class="actionTitle" style="margin:8px 0">🐉 Mega Rayquaza ontgrendelen</div><p class="actionExplanation">Als Rayquaza Dragon Ascent kent en je 400 Mega Energy hebt, kun je de eerste Mega Evolution doen. Plan deze op een moment waarop je nog Pokémon gaat vangen. Daarna begint je voortgang naar Level 2.</p><p class="tinytext alert">De planner staat nog op niet ontgrendeld. Pas dit aan als je Rayquaza inmiddels al Mega Evolved hebt.</p><button class="btn cyan" data-openmega="ray">Rayquaza instellen</button>`:`<div class="kicker">Jouw volgende beste actie</div><div class="actionTitle" style="margin:8px 0">Controleer je gratis Mega's</div><p class="actionExplanation">${relevant.length?'Er zijn vandaag evenementen, maar geen passende Mega met bekend type.':'Vandaag geen hoogprioritair Candy XL-evenement geselecteerd. Gebruik gratis transformaties voor Mega Level-progressie.'}</p><button class="btn cyan" data-tabtarget="megas">Bekijk mijn Megas</button>`}
+$('todayMain').innerHTML=main;let owned=db.megas.filter(activeMega),free=owned.filter(m=>stateAt(m,n).kind==='free'),unknown=owned.filter(m=>stateAt(m,n).kind==='unknown');$('todayStats').innerHTML=`<div class="metric"><small>Volgens registratie GRATIS</small><strong>${free.length}</strong></div><div class="metric"><small>Nog controleren in GO</small><strong>${unknown.length}</strong></div>`;
+let holds=owned.map(m=>({m,o:opportunity(m,today)})).filter(x=>x.o.kind==='hold');$('holdCount').textContent=holds.length+' Mega'+(holds.length===1?'':'s');$('holdList').innerHTML=holds.length?holds.slice(0,7).map(x=>`<div class="mini"><div class="row between"><b>🟡 ${esc(x.m.name)}</b><span class="pill hold">BEWAREN ALS GRATIS</span></div><p>Voor ${esc(x.o.event.name)} op ${esc(fmtDay(dt(x.o.event.start)))}.</p></div>`).join(''):'<div class="mini muted">Geen belangrijke reserve-dagen bekend. Je kunt vrije Megas vooruit helpen.</div>';
+let cycles=owned.map(m=>({m,o:opportunity(m,today)})).filter(x=>x.o.kind==='cycle');$('cycleList').innerHTML=cycles.length?cycles.slice(0,9).map(x=>`<div class="mini"><div class="row between"><b>🔁 ${esc(x.m.name)} <span class="muted tinytext">L${x.m.level}</span></b><button class="btn small cyan" data-used="${esc(x.m.id)}">Net geëvolueerd</button></div><p>GRATIS en geen belangrijk evenement in de weg. ${x.o.msg}.</p></div>`).join(''):'<div class="mini muted">Geen bevestigde, gratis Mega om nu te levelen. Controleer je cooldowns in het spel.</div>';
+$('unknownList').innerHTML=unknown.length?`<div class="mini"><p><b>${unknown.length} Mega's</b> hebben nog geen ingevoerde cooldown: ${esc(unknown.slice(0,4).map(m=>m.name).join(', '))}${unknown.length>4?'…':''}.</p><button class="btn small" data-tabtarget="megas">Controleer in Pokémon GO →</button></div>`:'<div class="mini muted">Alle ontgrendelde Mega-cooldowns zijn bekend of geverifieerd.</div>'}
+function futureRecommendation(d){let e=eventsFor(d).filter(useful).sort((a,b)=>rarityScore(b)-rarityScore(a))[0];if(!e)return null;let options=db.megas.filter(activeMega).map(m=>({m,s:score(m,e),state:stateAt(m,dt(e.start)||d)})).filter(x=>x.s>=0).sort((a,b)=>b.s-a.s);if(!options.length)return{e,name:'Geen passende Mega',state:'missing',m:null};let best=options.find(x=>x.state.kind==='active'||x.state.kind==='free')||options[0];return{e,m:best.m,name:best.m.name,state:best.state.kind}}
+function renderPlan(){let start=dayStart(new Date()),entries=[];for(let i=0;i<30;i++){let d=daysAfter(start,i),evs=eventsFor(d).filter(e=>rarityScore(e)>=6||(/twilight|dynamax/i.test(e.name)&&i%3===0)),q=futureRecommendation(d);if(importantOnly&&!evs.length&&!q)continue;if(importantOnly&&i>0&&evs.length===1&&rarityScore(evs[0])<7&&dayKey(dt(evs[0].start))!==dayKey(d))continue;let best=q?`<b>${esc(q.name)}</b> <span class="pill ${cardStatus(q.state)}">${q.state==='active'?'ACTIEF':q.state==='free'?'GRATIS als je hem niet eerder gebruikt':q.state==='unknown'?'check cooldown':q.state==='waiting'?'mogelijk cooldown':q.state==='missing'?'geen match':'controleer'}</span>`:'<span class="muted">Geen bevestigd wild-spawnadvies</span>';let evText=evs.slice(0,2).map(e=>e.name).join(' · ');entries.push(`<div class="scheduleEntry"><div class="dateBadge">${esc(new Intl.DateTimeFormat('nl-NL',{weekday:'short'}).format(d))}<strong>${d.getDate()}</strong>${esc(new Intl.DateTimeFormat('nl-NL',{month:'short'}).format(d))}</div><div><div class="tinytext muted">${esc(evText||'Geen belangrijk event')}</div><div style="margin:5px 0">${best}</div>${q&&q.m?`<div class="tinytext muted">Matches ${esc(matching(q.m,q.e).join(' / ')||'onbekend')} · L${q.m.level}</div>`:''}<button class="btn small ghost" data-day="${dayKey(d)}">Bekijk dag →</button></div></div>`)}$('agendaList').innerHTML=entries.join('')||'<div class="card">Geen aankomende belangrijke evenementen bekend.</div>';
+$('dateStrip').innerHTML=Array.from({length:30},(_,i)=>{let d=daysAfter(start,i),key=dayKey(d);return `<button class="datechip ${selected===key?'active':''}" data-day="${key}"><small>${esc(new Intl.DateTimeFormat('nl-NL',{weekday:'short'}).format(d))}</small><strong>${d.getDate()}</strong><small>${esc(new Intl.DateTimeFormat('nl-NL',{month:'short'}).format(d))}</small>${eventsFor(d).filter(e=>rarityScore(e)>=8).length?'<span class="dot"></span>':''}</button>`}).join('');renderDay();$('objectiveLabel').textContent=goal==='xl'?'Candy XL':'Mega Levels';$('goalXL').className='btn small '+(goal==='xl'?'cyan':'ghost');$('goalLevel').className='btn small '+(goal==='level'?'cyan':'ghost')}
+function renderDay(){let d=dateFromKey(selected);if(!d)return;let evs=eventsFor(d,false).filter(e=>!importantOnly||isMainEvent(e));let q=futureRecommendation(d);let options=evs.filter(e=>isMainEvent(e));let html=`<div class="card"><div class="row between"><h2>${esc(new Intl.DateTimeFormat('nl-NL',{weekday:'long',day:'numeric',month:'long'}).format(d))}</h2></div><div class="line"></div>`;if(q&&q.m){let when=stateAt(q.m,dt(q.e.start)||d);html+=`<div class="pill ${cardStatus(when.kind)}">${when.kind==='active'?'ACTIEF':when.kind==='free'?'WAARSCHIJNLIJK GRATIS':when.kind==='unknown'?'IN SPEL CONTROLEREN':'LET OP COOLDOWN'}</div><p><b>Beste voor het evenement:</b> ${esc(q.name)}</p><p class="muted tinytext">${esc(q.e.name)} · +${candy(q.m)} Candy · +${xl(q.m)} procentpunt XL-kans · match: ${esc(matching(q.m,q.e).join(', '))}</p>`}else html+='<p class="muted">Vandaag geen specifieke, passende Mega-aanbeveling. Gebruik gratis evoluties voor levelprogressie.</p>';html+='</div>';
+for(let e of options.slice(0,12)){let rec=bestFor(e,dt(e.start)||d);let typ=typesFor(e);html+=`<div class="eventCard"><div class="row between top"><div class="name">${esc(e.name)}</div><span class="pill">${esc(e.category||'event')}</span></div><div class="tinytext muted">${esc(evSummary(e))}</div><div class="v3meta">${eventEvidence(e)}</div>${typ.length?`<div class="tagRow">${typ.slice(0,6).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>`:''}${e.bonus?`<p class="tinytext muted">${esc(eventNote(e))}</p>`:''}<p class="tinytext">${rec?`⭐ ${esc(rec.m.name)} (L${rec.m.level}) · <span class="muted">${rec.st.kind==='active'?'ACTIEF':rec.st.kind==='free'?'GRATIS volgens tracker':rec.st.kind==='unknown'?'gratis-status onbekend':'volgens tracker cooldown'}</span>`:'Geen betrouwbare wilde-spawn match; zie broninformatie'}</p>${/^https:\/\//.test(e.source||'')?`<a class="tinytext" href="${esc(e.source)}" target="_blank" rel="noopener">Evenementbron</a>`:''}</div>`}if(!options.length)html+='<div class="mini muted">Geen groot evenement op deze dag in de bekende kalender.</div>';
+let known=db.megas.filter(activeMega),ready=known.filter(m=>stateAt(m,new Date(d.getFullYear(),d.getMonth(),d.getDate(),12,0)).kind==='free'),reserved=ready.filter(m=>opportunity(m,d).kind==='hold'),cycles=ready.filter(m=>opportunity(m,d).kind==='cycle'),unknown=known.filter(m=>stateAt(m,d).kind==='unknown');
+html+=`<div class="card"><h3>🔁 Vrije Mega-rotatie voor deze dag</h3>${cycles.length?`<p class="tinytext">${esc(cycles.map(m=>m.name).join(' · '))}</p>`:'<p class="muted tinytext">Nog geen Mega met bevestigde gratis cooldown gepland.</p>'}${reserved.length?`<div class="line"></div><h3>🟡 Liever bewaren</h3><p class="tinytext">${esc(reserved.map(m=>m.name).join(' · '))}</p>`:''}${unknown.length?`<p class="muted tinytext">${unknown.length} Mega-cooldowns ontbreken; vul ze in voor een completer advies.</p>`:''}<p class="tinytext muted">Voorlopige planning: event-spawns kunnen wijzigen, spawnfrequenties ontbreken en Mega-cooldowns veranderen na gebruik.</p></div>`;
+$('dayDetail').innerHTML=html;}
+function renderMegas(){let n=new Date(),search=$('megaSearch').value.toLowerCase(),fil=$('megaFilter').value;let ms=db.megas.filter(m=>(m.name+' '+(m.types||[]).join(' ')).toLowerCase().includes(search));if(fil!=='all')ms=ms.filter(m=>{let k=stateAt(m,n).kind;return fil==='free'?k==='free':fil==='unknown'?k==='unknown':fil==='hold'?opportunity(m,dayStart(n)).kind==='hold':true});$('megaGrid').innerHTML=ms.map(m=>{let s=stateAt(m,n),o=opportunity(m,dayStart(n)),hold=o.kind==='hold',status=s.kind==='active'?'ACTIEF':hold?'BEWAREN':s.kind==='free'?'GRATIS':s.kind==='unknown'?'CONTROLEREN':s.kind==='waiting'?'COOLDOWN':'NIET BESCHIKBAAR';let desc=hold?'Voor '+o.event.name:s.msg;return `<div class="card mega"><div class="split"><h3>${esc(m.name)}</h3><span class="pill">L${m.level}</span></div><div class="meta">${esc((m.types||[]).join(' · '))}</div><div style="margin:9px 0"><span class="pill ${hold?'hold':cardStatus(s.kind)}">${esc(status)}</span></div><p class="tinytext muted">${esc(desc)} · Energy: ${m.energy==null?'onbekend':esc(m.energy)} ${m.level>0?'· '+coolDays(m)+' dagen CD':''}</p><div class="cmds"><button class="btn small ghost" data-edit="${esc(m.id)}">Instellen</button>${activeMega(m)&&s.kind==='unknown'?`<button class="btn small cyan" data-verify="${esc(m.id)}">Is GRATIS</button>`:''}${s.kind==='active'?`<button class="btn small ghost" data-ended="${esc(m.id)}">Mega gestopt</button>`:`<button class="btn small ${hold?'ghost':'primary'}" data-used="${esc(m.id)}">Net geëvolueerd</button>`}</div></div>`}).join('')||'<div class="card muted">Geen Mega gevonden.</div>';
+$('typeCoverage').innerHTML=TYPES.map(t=>{let a=db.megas.filter(m=>activeMega(m)&&(m.types||[]).includes(t)).sort((x,y)=>+y.level-+x.level);return `<div class="typeCard"><b>${t}</b><span>${a.length?esc(a.slice(0,2).map(m=>m.name+' L'+m.level).join(' · ')):'Nog geen Mega'}</span></div>`}).join('')}
+function renderCustomEvents(){let a=db.events.filter(e=>e.manual||String(e.id||'').startsWith('customevent_'));$('customEvents').innerHTML=a.length?a.map(e=>`<div class="checkitem"><div><b>${esc(e.name)}</b><div class="muted tinytext">${esc(evSummary(e))}</div></div><button class="btn ghost small" data-edit-event="${esc(e.id)}">Wijzig</button></div>`).join(''):'<p class="tinytext muted">Nog geen eigen evenementen toegevoegd.</p>'}
+function render(){renderToday();renderPlan();renderMegas();renderCustomEvents()}
+function activate(t){tab=t;document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('active',x.dataset.tab===t));document.querySelectorAll('.pane').forEach(x=>x.classList.toggle('active',x.id===t));window.scrollTo(0,0);}
+function pop(title,content){$('modalTitle').textContent=title;$('modalBody').innerHTML=content;$('dialog').classList.add('show')}
+function close(){ $('dialog').classList.remove('show')}
+function formField(label,name,value='',type='text'){return `<label class="control"><span>${esc(label)}</span><input name="${name}" type="${type}" value="${esc(value??'')}"></label>`}
+function editMega(id){
+  let m=id?db.megas.find(x=>x.id===id):{id:'custom_'+Date.now(),name:'',types:[],level:0,owned:false,energy:null,uses:null,last:'',lastEnd:'',lastEndFor:'',note:''};
+  if(!m)return;
+  let endValue=m.lastEndFor===m.last?m.lastEnd||'':'';
+  pop(id?'Mega aanpassen':'Nieuwe Mega toevoegen',`<form id="megaForm"><div class="formGrid">${formField('Naam','name',m.name)}<label class="control"><span>Mega Level</span><select name="level">${[0,1,2,3,4].map(x=>`<option value="${x}" ${+m.level===x?'selected':''}>${x} — ${['Nog niet ontgrendeld','Base','High','Max','Super Max'][x]}</option>`).join('')}</select></label>${formField('Bonus-types (komma gescheiden)','types',(m.types||[]).join(', '))}${formField('Mega Energy (leeg indien onbekend)','energy',m.energy,'number')}<label class="control"><span>Al Mega Evolved?</span><select name="owned"><option value="1" ${m.owned?'selected':''}>Ja</option><option value="0" ${!m.owned?'selected':''}>Nee</option></select></label>${formField('Mega-level voortgang (maximaal 1 per dag)','uses',m.uses,'number')}${formField('Start laatste Mega Evolution','last',m.last,'datetime-local')}${formField('Einde (alleen invullen bij eerdere stop)','end',endValue,'datetime-local')}<p class="tinytext muted span2">Einde leeg = 8 uur na de start. Wanneer je een andere Mega registreert, wordt een eerder einde automatisch verwerkt. De cooldown begint bij het einde.</p><label class="control span2"><span>Notities</span><textarea name="note">${esc(m.note||'')}</textarea></label></div><div class="controls"><button class="btn primary" type="submit">Opslaan</button><button class="btn ghost" type="button" id="cancelModal">Annuleren</button></div></form>`);
+  $('cancelModal').onclick=close;
+  $('megaForm').onsubmit=e=>{e.preventDefault();let f=new FormData(e.target),level=+f.get('level'),name=String(f.get('name')||'').trim();if(!name){alert('Vul de naam in.');return}
+    let last=String(f.get('last')||''),end=String(f.get('end')||'');
+    if(end&&(!dt(last)||!dt(end)||dt(end)<dt(last)||dt(end).getTime()>dt(last).getTime()+MEGA_DURATION_MS)){alert('Het einde moet tussen de start en acht uur na de start liggen.');return}
+    let x={...m,name,level,types:String(f.get('types')||'').split(',').map(s=>s.trim()).filter(t=>TYPES.includes(t)),owned:f.get('owned')==='1'&&level>0,energy:f.get('energy')===''?null:Number(f.get('energy')),uses:f.get('uses')===''?null:Number(f.get('uses')),last,lastEnd:end,lastEndFor:end?last:'',note:String(f.get('note')||'')};
+    if(last!==m.last){x.freeVerifiedAt='';x.readyOverrideAt='';x.lastProgressDay='';}
+    if(id)db.megas=db.megas.map(o=>o.id===id?x:o);else db.megas.push(x);close();save();
+  }
+}
+function markFree(id){let m=db.megas.find(m=>m.id===id);if(!m||!activeMega(m))return;if(!confirm('Heb je in Pokémon GO gecontroleerd dat '+m.name+' nu echt GRATIS kan evolueren?'))return;m.freeVerifiedAt=new Date().toISOString();save()}
+function markEnded(id){
+  let m=db.megas.find(m=>m.id===id),n=new Date();
+  if(!m||stateAt(m,n).kind!=='active')return;
+  if(!confirm('Is '+m.name+' in Pokémon GO echt teruggekeerd naar zijn normale vorm? De rustperiode begint dan NU.'))return;
+  m.lastEnd=localDatetime(n);m.lastEndFor=m.last;save();
+}
+function markEvolved(id){
+  let m=db.megas.find(m=>m.id===id);if(!m)return;
+  let n=new Date(),same=dt(m.last)&&dayKey(dt(m.last))===dayKey(n);
+  let previous=db.megas.filter(o=>o.id!==m.id&&stateAt(o,n).kind==='active');
+  let warning=previous.length?' Hiermee beëindig je ook '+previous.map(o=>o.name).join(', ')+'; diens cooldown begint dan meteen.':'';
+  if(!confirm('Heb je '+m.name+' NU echt in Pokémon GO Mega Evolved? Deze blijft normaal 8 uur actief; de cooldown start daarna.'+warning))return;
+  // Een nieuwe Mega activeert er slechts één tegelijk en beëindigt een vorige vroeg.
+  for(let o of previous){o.lastEnd=localDatetime(n);o.lastEndFor=o.last;}
+  if(!activeMega(m)){m.level=1;m.owned=true;m.uses=1}
+  else if(!same)m.uses=m.uses!==null&&m.uses!==undefined&&Number.isFinite(Number(m.uses))?Number(m.uses)+1:null;
+  m.last=localDatetime(n);m.lastEnd='';m.lastEndFor='';m.freeVerifiedAt='';save();
+  if((m.level===1&&m.uses>=7)||(m.level===2&&m.uses>=30))alert('Controleer het huidige Mega Level in Pokémon GO en werk het veld zo nodig bij.');
+}
+function editEvent(id){let e=id?db.events.find(e=>e.id===id):{id:'customevent_'+Date.now(),name:'',start:localDatetime(new Date()),end:localDatetime(new Date(Date.now()+3600000)),types:[],bonus:'',source:'',catch:true,category:'event',notes:'',manual:true};if(!e)return;pop(id?'Evenement wijzigen':'Eigen evenement toevoegen',`<form id="eventForm"><div class="formGrid">${formField('Naam','name',e.name)}${formField('Types (komma gescheiden)','types',(e.types||[]).join(', '))}${formField('Begin','start',e.start,'datetime-local')}${formField('Einde','end',e.end,'datetime-local')}${formField('Bonus','bonus',e.bonus)}<label class="control"><span>Pokemon vangen?</span><select name="catch"><option value="1" ${e.catch?'selected':''}>Ja</option><option value="0" ${!e.catch?'selected':''}>Nee</option></select></label></div><div class="controls"><button type="submit" class="btn primary">Opslaan</button>${id?'<button type="button" class="btn danger" id="delEvent">Verwijderen</button>':''}<button type="button" class="btn ghost" id="cancelModal">Annuleren</button></div></form>`);$('cancelModal').onclick=close;if(id)$('delEvent').onclick=()=>{if(confirm('Verwijder dit evenement?')){db.events=db.events.filter(x=>x.id!==id);close();save()}};$('eventForm').onsubmit=a=>{a.preventDefault();let f=new FormData(a.target),name=String(f.get('name')||'').trim(),start=String(f.get('start')||''),end=String(f.get('end')||'');if(!name||!dt(start)||!dt(end)||dt(end)<dt(start)){alert('Vul een naam en geldige datums in.');return}let x={...e,name,start,end,types:String(f.get('types')||'').split(',').map(t=>t.trim()).filter(t=>TYPES.includes(t)),bonus:String(f.get('bonus')||''),catch:f.get('catch')==='1',manual:true};if(id)db.events=db.events.map(v=>v.id===id?x:v);else db.events.push(x);close();save()}}
+// V3.0: De browser leest de publieke eventbron zelf, zodat één HTML-upload genoeg is.
+// De oude GitHub-feed blijft als uitvaloptie bestaan en wordt nooit als 'bevestigde wilde spawns' gemarkeerd.
+const TYPE_ID_NAMES={1:'Normal',2:'Fighting',3:'Flying',4:'Poison',5:'Ground',6:'Rock',7:'Bug',8:'Ghost',9:'Steel',10:'Fire',11:'Water',12:'Grass',13:'Electric',14:'Psychic',15:'Ice',16:'Dragon',17:'Dark',18:'Fairy'};
+const SOURCE_V3='https://pokelitee.github.io/leak-duck/events.json';
+const POKEAPI_CSV='https://raw.githubusercontent.com/PokeAPI/pokeapi/master/data/v2/csv/';
+const DEX_CACHE='pogo-mega-v3-types';
+let pokedexV3=null,feedMode='offline',feedChecked=null,feedMessage='',dexLoaded=false;
+const fallbackTypesV3={
+ abra:['Psychic'],beldum:['Steel','Psychic'],metang:['Steel','Psychic'],metagross:['Steel','Psychic'],
+ cresselia:['Psychic'],darkrai:['Dark'],deoxys:['Psychic'],mewtwo:['Psychic'],pawniard:['Dark','Steel'],
+ grookey:['Grass'],scorbunny:['Fire'],sobble:['Water'],noibat:['Flying','Dragon'],noivern:['Flying','Dragon'],
+ clefairy:['Fairy'],clefable:['Fairy'],elgyem:['Psychic'],staryu:['Water'],starmie:['Water','Psychic'],
+ rockruff:['Rock'],minior:['Rock','Flying'],gengar:['Ghost','Poison'],banette:['Ghost'],
+ beedrill:['Bug','Poison'],houndoom:['Dark','Fire'],sableye:['Dark','Ghost'],manectric:['Electric'],
+ kyogre:['Water'],groudon:['Ground'],rayquaza:['Dragon','Flying'],eternatus:['Poison','Dragon'],
+ tornadus:['Flying'],espurr:['Psychic'],cryogonal:['Ice'],machamp:['Fighting'],
+ bounsweet:['Grass'],chansey:['Normal'],blissey:['Normal'],
+ tyranitar:['Rock','Dark'],abomasnow:['Grass','Ice'],pidgeot:['Normal','Flying'],
+ lucario:['Fighting','Steel'],gardevoir:['Psychic','Fairy'],raichu:['Electric'],
+ falinks:['Fighting'],alakazam:['Psychic'],bisharp:['Dark','Steel'],kingambit:['Dark','Steel']
+};
+function normalizeSpeciesV3(name){
+ let n=String(name||'').toLowerCase().normalize('NFKD').replace(/[‘’']/g,'').replace(/♀/g,'-f').replace(/♂/g,'-m');
+ n=n.replace(/&amp;/g,'&').replace(/^((shadow|purified|gigantamax|dynamax|eternamax|mega)\s+)+/g,'');
+ n=n.replace(/\s+wearing\s+.*$/g,'').replace(/\s*\([^)]*\)\s*$/g,'').trim();
+ n=n.replace(/[.]/g,'').replace(/\s+/g,'-');
+ return n;
+}
+function dexLookupV3(name){
+ let raw=String(name||'').toLowerCase();
+ let key=normalizeSpeciesV3(name);
+ // Strip form suffix where appropriate; for raiding this is an estimate, not a reason to label a wild type as verified.
+ let form=/\b(alolan|galarian|hisuian|paldean)\b/.exec(raw);
+ if(form){let suffix={alolan:'alola',galarian:'galar',hisuian:'hisui',paldean:'paldea'}[form[1]];let v=pokedexV3?.[key+'-'+suffix];if(v)return v;}
+ return (pokedexV3&&pokedexV3[key])||fallbackTypesV3[key]||null;
+}
+function parseCsvV3(str){return String(str).trim().split(/\r?\n/).slice(1).map(line=>line.replace(/\r/g,'').split(','))}
+async function timedFetchV3(url,opts={}){
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),9000);
+ try{return await fetch(url,{...opts,signal:controller.signal})}finally{clearTimeout(timer)}
+}
+async function loadDexV3(){
+ if(pokedexV3)return pokedexV3;
+ try {let cached=JSON.parse(localStorage.getItem(DEX_CACHE)||'null');if(cached&&cached.data&&Object.keys(cached.data).length>900){pokedexV3=cached.data;dexLoaded=true;return pokedexV3}}catch(e){}
+ try{
+   let [pokResp,typeResp]=await Promise.all([
+     timedFetchV3(POKEAPI_CSV+'pokemon.csv',{cache:'force-cache'}),
+     timedFetchV3(POKEAPI_CSV+'pokemon_types.csv',{cache:'force-cache'})
+   ]);
+   if(!pokResp.ok||!typeResp.ok)throw Error('Pokédex-bron niet beschikbaar');
+   let [pokCSV,typeCSV]=await Promise.all([pokResp.text(),typeResp.text()]);
+   let names={};for(let p of parseCsvV3(pokCSV)){if(p.length>=2)names[p[0]]=p[1]}
+   let map={};for(let r of parseCsvV3(typeCSV)){let id=names[r[0]],type=TYPE_ID_NAMES[Number(r[1])];if(id&&type){if(!map[id])map[id]=[];if(!map[id].includes(type))map[id].push(type)}}
+   if(Object.keys(map).length<900)throw Error('Pokédex niet volledig geladen');
+   pokedexV3=map;dexLoaded=true;
+   try{localStorage.setItem(DEX_CACHE,JSON.stringify({data:map,at:new Date().toISOString()}))}catch(e){}
+   return map;
+ }catch(err){pokedexV3={...fallbackTypesV3};dexLoaded=false;return pokedexV3}
+}
+function entriesV3(arr){
+ if(!Array.isArray(arr))return [];
+ return arr.map(item=>typeof item==='string'?item:typeof item==='object'&&item?String(item.name||item.pokemon||item.title||''):'').filter(Boolean);
+}
+function uniqueV3(items){return [...new Set(items.filter(Boolean))]}
+function namedTypesV3(names){let all=[],missing=[];for(let name of names){let types=dexLookupV3(name);if(!types)missing.push(name);else all.push(...types)}return {types:uniqueV3(all),missing}}
+function nameFromTitleV3(title){
+ let key=String(title||'').toLowerCase().replace(/[^a-z0-9-]+/g,' '),all=Object.keys(pokedexV3||fallbackTypesV3).filter(k=>!k.includes('-mega')&&!k.includes('-gmax')).sort((a,b)=>b.length-a.length),found=[];
+ for(let pokemon of all){if(pokemon.length<4)continue;let pat=pokemon.replace(/-/g,' ');let re=new RegExp('(?:^|[^a-z])'+pat.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?:$|[^a-z])','i');if(re.test(key))found.push(pokemon);if(found.length>=15)break}
+ return uniqueV3(found);
+}
+function eventDateV3(val){
+ if(typeof val==='number'){let d=new Date(val*1000);return Number.isNaN(d.getTime())?null:localDatetime(d)}
+ if(!val||typeof val!=='string')return null;
+ let d=dt(val);return d?localDatetime(d):null;
+}
+function normalizeEventV3(item){
+ if(!item||typeof item!=='object')return null;
+ let name=String(item.title||'').trim(),start=eventDateV3(item.start_time),end=eventDateV3(item.end_time);
+ if(!name||!start||!end||end<start)return null;
+ let details=item.details&&typeof item.details==='object'?item.details:{};
+ let wild=entriesV3(details.spawns),raids=entriesV3(details.raids);
+ let research=entriesV3(details.research).concat(entriesV3(details.field_research));
+ let maxBattles=entriesV3(details.max_battles).concat(entriesV3(details.maxBattles));
+ let eggs=entriesV3(details.eggs);
+ // Titels zijn alleen een aanwijzing voor Spotlight Hours en Community Days, geen bevestigde spawn-lijst.
+ let fromTitle=false;
+ if(!wild.length && /spotlight hour|community day/i.test(name)){
+   let titleNames=nameFromTitleV3(name);
+   if(titleNames.length){wild=titleNames;fromTitle=true}
+ }
+ let w=namedTypesV3(wild),r=namedTypesV3(raids),q=namedTypesV3(research),mx=namedTypesV3(maxBattles),eg=namedTypesV3(eggs);
+ let confidence=wild.length?(fromTitle?'title':w.missing.length?'partial':'listed'):'unknown';
+ if(!w.types.length)confidence='unknown';
+ let bonuses=Array.isArray(details.bonuses)?details.bonuses.filter(x=>typeof x==='string'):[];
+ let source=typeof item.article_url==='string'&&/^https:\/\//.test(item.article_url)?item.article_url:'https://leekduck.com/events/';
+ let category=/raid/i.test(String(item.category||'')+' '+name)?'raid':'event';
+ let eventID='live3_'+String(name+'|'+start).toLowerCase().replace(/[^a-z0-9]+/g,'-').slice(0,105);
+ return {schemaVersion:3,id:eventID,name,start,end,category,source,
+   types:w.types,wildTypes:w.types,raidTypes:r.types,researchTypes:q.types,maxTypes:mx.types,eggTypes:eg.types,
+   wildNames:wild,raidNames:raids,researchNames:research,maxNames:maxBattles,eggNames:eggs,
+   unknownWild:w.missing,confidence,catch:w.types.length>0,manual:false,
+   bonus:bonuses.slice(0,3).join('; ')||String(item.description||'').slice(0,200)||'Zie evenementbron',
+   notes:fromTitle?'Wild-spawns afgeleid uit titel; controleer officiële aankondiging.':'Alleen expliciet vermelde event-Pokémon meegenomen; spawnkansen onbekend.'};
+}
+function flattenEventsV3(raw){
+ if(!raw||typeof raw!=='object'||Array.isArray(raw))throw Error('Ongeldige eventfeed');
+ let out=[],seen=new Set(),now=Date.now()-2*86400000,limit=Date.now()+150*86400000;
+ for(let arr of Object.values(raw)){if(!Array.isArray(arr))continue;for(let item of arr){let e=normalizeEventV3(item);if(!e||!dt(e.end)||dt(e.end).getTime()<now||dt(e.start).getTime()>limit||seen.has(e.id))continue;out.push(e);seen.add(e.id)}}
+ if(!out.length)throw Error('Geen herkenbare evenementen in bron');
+ return out.sort((a,b)=>String(a.start).localeCompare(String(b.start)));
+}
+function safeLegacyV3(e){
+ if(e.schemaVersion===3)return e;
+ if(e.manual||String(e.id||'').startsWith('customevent_'))return {...e,schemaVersion:3,confidence:'manual',wildTypes:Array.isArray(e.types)?e.types:[],wildNames:[],raidNames:[]};
+ // Oude event-types bevatten óók raid- en research Pokémon. Daarom nooit als geverifieerde wildvangsten behandelen.
+ let isTitleWild=/community day|spotlight hour|spotlight/i.test(String(e.name||''));
+ let maybe=isTitleWild&&Array.isArray(e.types)?e.types:[];
+ return {...e,schemaVersion:3,confidence:maybe.length?'legacy':'unknown',wildTypes:maybe,wildNames:[],raidNames:[],catch:maybe.length>0};
+}
+function eventEvidence(e){
+ let kind=e.confidence||'unknown',label=kind==='listed'?'✅ Wilde spawns vermeld':kind==='partial'?'🟡 Wilde spawns deels herkend':kind==='title'?'🟡 Afgeleid uit titel':kind==='legacy'?'⚠️ Oude bron; controleren':kind==='manual'?'✍️ Eigen evenement':'⚠️ Wilde spawns onbekend';
+ let cls=kind==='listed'?'known':kind==='partial'||kind==='title'?'partial':'unknown';
+ let bits=[`<span class="v3confidence ${cls}">${esc(label)}</span>`];
+ function part(title,list){if(Array.isArray(list)&&list.length)bits.push(`<div class="v3details"><b>${title}:</b> ${esc(list.slice(0,13).join(', '))}${list.length>13?'…':''}</div>`)}
+ part('Wild',e.wildNames);part('Raids',e.raidNames);part('Research',e.researchNames);part('Max Battles',e.maxNames);part('Eieren',e.eggNames);
+ if(e.unknownWild?.length)part('Types niet herkend',e.unknownWild);
+ if(e.schemaVersion===3&&!e.wildNames?.length&&kind!=='manual'&&e.raidNames?.length)bits.push('<div class="v3details">Alleen raid-Pokémon bekend. Geen wild-Candy-XL-advies.</div>');
+ if(e.source&&/^https:\/\//.test(e.source))bits.push(`<div class="v3details"><a class="v3source" href="${esc(e.source)}" target="_blank" rel="noopener noreferrer">Controleer evenementbron</a></div>`);
+ return bits.join('');
+}
+function renderTrustV3(){
+ let upcoming=db.events.filter(e=>dt(e.end)>=dayStart(new Date())&&!e.manual),listed=upcoming.filter(e=>e.confidence==='listed').length,partial=upcoming.filter(e=>e.confidence==='partial'||e.confidence==='title'||e.confidence==='legacy').length;
+ let unknown=upcoming.length-listed-partial;
+ $('v3TrustCounts').innerHTML=`<b>${listed}</b> wild-lijsten herkend · <b>${partial}</b> gedeeltelijk/afgeleid · <b>${unknown}</b> onbekend. <span class="muted">Bron: ${feedMode==='live'?'Live eventdetails':feedMode==='backup'?'GitHub-reserve':'Lokaal'}; Pokédex: ${dexLoaded?'volledig':'beperkte fallback'}.</span>`;
+}
+async function getJsonV3(url){let r=await timedFetchV3(url,{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);return r.json()}
+async function syncFeed(){
+ feedState='laden';setFeedStatus();let checked=new Date(),same=false,err='';
+ try{
+   await loadDexV3();
+   let raw=await getJsonV3(SOURCE_V3+'?v='+Date.now());
+   let upcoming=flattenEventsV3(raw);
+   let previous=db.events.filter(e=>!(e.manual||String(e.id||'').startsWith('customevent_')));
+   same=JSON.stringify(previous.map(e=>[e.id,e.wildTypes,e.raidNames]))===JSON.stringify(upcoming.map(e=>[e.id,e.wildTypes,e.raidNames]));
+   let personal=db.events.filter(e=>e.manual||String(e.id||'').startsWith('customevent_'));
+   db.events=[...personal,...upcoming];feedMode='live';feedState='ok';feedChecked=checked;feedUpdated=checked;feedMessage=same?'Geen veranderingen in de gepubliceerde spawns.':'Evenementdetails verwerkt.';
+   save();setFeedStatus();return;
+ }catch(e){err=String(e.message||e)}
+ try{
+   let x=await getJsonV3('./data/live-events.json?v='+Date.now());
+   if(!Array.isArray(x.events)||!x.events.length)throw Error('GitHub-reservebestand ontbreekt');
+   let upcoming=x.events.map(safeLegacyV3).filter(e=>e.id&&dt(e.start)&&dt(e.end));
+   let personal=db.events.filter(e=>e.manual||String(e.id||'').startsWith('customevent_'));
+   let oldV3=db.events.filter(e=>e.schemaVersion===3&&!e.manual&&!String(e.id||'').startsWith('customevent_')); // V3.1: retain unknown events when the live source fails
+   // Behoud rijke, eerder geladen informatie wanneer alleen de primaire bron tijdelijk onbereikbaar is.
+   db.events=[...personal,...(oldV3.length?oldV3:upcoming)];
+   feedMode='backup';feedState='ok';feedChecked=checked;feedUpdated=dt(x.updated);feedMessage='Primaire detailbron niet bereikbaar; GitHub-reserve gebruikt. Geen bevestigde wild-spawns uit deze reserve. '+err;
+   save();setFeedStatus();return;
+ }catch(e){
+   feedMode='offline';feedState='error';feedChecked=checked;feedMessage=err+'; GitHub: '+String(e.message||e);
+   setFeedStatus(feedMessage);
+ }
+}
+function setFeedStatus(err=''){
+ let n=db.events.filter(e=>dt(e.end)>=dayStart(new Date())).length;
+ let check=feedChecked?fmtTime(feedChecked):'–';let backupInfo=feedMode==='backup'&&feedUpdated?' · bronbestand '+fmtDay(feedUpdated)+' '+fmtTime(feedUpdated):'';
+ let txt=feedState==='laden'?'↻ Evenementen en Pokémon-types controleren…':
+  feedState==='ok'?`✅ Zojuist gecontroleerd om ${check} · ${n} evenementen · ${feedMode==='live'?'detailbron':'GitHub-reserve'} · ${feedMessage}${backupInfo}`:
+  `⚠️ Niet vernieuwd: ${err||feedMessage}. Vorige gegevens blijven zichtbaar.`;
+ $('feedStatus').textContent=txt;$('feedStatus').className='notice '+(feedState==='error'?'warn':'');$('feedDetail').textContent=txt;
+ renderTrustV3();
+}
+function download(name,data){let blob=new Blob([data],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),5000)}
+function renderAllEvents(){let a=db.events.filter(e=>dt(e.end)>=dayStart(new Date())).sort((a,b)=>dt(a.start)-dt(b.start));$('allEventsList').innerHTML=a.map(e=>`<div class="checkitem"><div><b>${esc(e.name)}</b><p class="tinytext muted">${esc(evSummary(e))} · wild: ${esc(typesFor(e).join(', ')||'onbekend')}</p><div class="v3meta">${eventEvidence(e)}</div></div></div>`).join('')}
+
+// ---- Mega Planner V3.1 ----
+// Actual game actions must only be registered when the user confirms them.
+// 'uses' means unique days that count towards Mega Level, not total taps/activations.
+const V31_HOUR=3600000,V31_DAY=86400000;
+function freeAt(m){
+  if(!activeMega(m))return null;
+  const direct=dt(m.readyOverrideAt);
+  if(direct)return direct;
+  const end=megaEndAt(m);
+  return end?new Date(end.getTime()+coolDays(m)*V31_DAY):null;
+}
+function stateAt(m,t){
+  if(!activeMega(m))return{kind:'locked',msg:'Nog niet ontgrendeld'};
+  const end=megaEndAt(m),ready=freeAt(m);
+  if(megaActiveAt(m,t))return{kind:'active',msg:'ACTIEF tot '+fmtDay(end)+' '+fmtTime(end),end,free:ready};
+  // Een rechtstreeks ingevoerde Pokémon GO-cooldown heeft voorrang op oudere schattingen.
+  if(dt(m.readyOverrideAt)){
+    return ready<=t?{kind:'free',msg:'GRATIS sinds '+fmtDay(ready)+' '+fmtTime(ready)}:{kind:'waiting',msg:'GRATIS '+fmtDay(ready)+' '+fmtTime(ready),free:ready};
+  }
+  if(isVerifiedFree(m,t))return{kind:'free',msg:'GRATIS (zelf gecontroleerd)'};
+  if(!ready)return{kind:'unknown',msg:'Cooldown onbekend'};
+  return ready<=t?{kind:'free',msg:'GRATIS vanaf '+fmtDay(ready)+' '+fmtTime(ready)}:{kind:'waiting',msg:'GRATIS '+fmtDay(ready)+' '+fmtTime(ready),free:ready};
+}
+function levelProgressV31(m){
+  if(!activeMega(m))return 'Nog niet ontgrendeld';
+  if(+m.level===4)return 'Super Max · voltooid';
+  if(+m.level===3)return 'Max Level · voltooid';
+  if(!Number.isInteger(m.uses)||m.uses<0)return 'Voortgang onbekend — vul de teller bij Instellen in';
+  let needed=(+m.level===1?7:30),remaining=Math.max(0,needed-m.uses);
+  return remaining===0?'Volgend level bereikt? Controleer in Pokémon GO':m.uses+'/'+needed+' evolutiedagen · nog '+remaining+' tot '+(+m.level===1?'High':'Max');
+}
+function editCooldownV31(id){
+  let m=db.megas.find(x=>x.id===id);if(!m||!activeMega(m))return;
+  const ready=freeAt(m),now=new Date();
+  const remain=ready?Math.max(0,Math.ceil((ready-now)/V31_HOUR)):0;
+  let days=Math.floor(remain/24),hours=remain%24;
+  pop('Cooldown instellen: '+m.name,`<p class="muted">Kijk in Pokémon GO bij <b>REST PERIOD</b>. Vul de dagen en uren in die daar nu staan. Je hoeft geen oude evolutiedatum te weten.</p><form id="v31CooldownForm"><div class="v31quickform"><label class="control">Dagen<input type="number" name="days" min="0" max="30" step="1" required value="${days}"></label><label class="control">Uren<input type="number" name="hours" min="0" max="23" step="1" required value="${hours}"></label></div><p class="v31hint">Een screenshot met afgeronde uren is niet op de minuut nauwkeurig. Controleer het gratis-moment later opnieuw in het spel.</p><div class="controls"><button class="btn primary" type="submit">Opslaan</button><button class="btn ghost" type="button" id="v31CancelCooldown">Annuleren</button></div></form>`);
+  $('v31CancelCooldown').onclick=close;
+  $('v31CooldownForm').onsubmit=e=>{
+    e.preventDefault();let f=new FormData(e.target),d=Number(f.get('days')),h=Number(f.get('hours'));
+    if(!Number.isInteger(d)||!Number.isInteger(h)||d<0||d>30||h<0||h>23){alert('Vul geldige dagen (0–30) en uren (0–23) in.');return}
+    let until=new Date(Date.now()+(d*24+h)*V31_HOUR);
+    if(d===0&&h===0){
+      m.readyOverrideAt='';m.freeVerifiedAt=new Date().toISOString();
+    }else{
+      m.readyOverrideAt=localDatetime(until);m.freeVerifiedAt='';
+    }
+    close();save();
+  };
+}
+function markFree(id){
+  let m=db.megas.find(x=>x.id===id);if(!m||!activeMega(m))return;
+  if(!confirm('Heb je in Pokémon GO ECHT gecontroleerd dat '+m.name+' nu GRATIS is?'))return;
+  m.readyOverrideAt='';m.freeVerifiedAt=new Date().toISOString();save();
+}
+function markEvolved(id){
+  let m=db.megas.find(x=>x.id===id);if(!m)return;
+  let n=new Date(),day=dayKey(n),last=dt(m.last);
+  let sameProgressDay=m.lastProgressDay===day||(!m.lastProgressDay&&last&&dayKey(last)===day);
+  const active=db.megas.filter(o=>o.id!==m.id&&megaActiveAt(o,n));
+  const warning=active.length?' Dit beëindigt '+active.map(o=>o.name).join(', ')+' eerder.':'';
+  if(!confirm('Heb je '+m.name+' NU echt Mega Evolved in Pokémon GO? '+(sameProgressDay?'Op dezelfde dag stijgt de Mega Level-voortgang NIET opnieuw.':'De Mega-level teller stijgt één keer voor deze dag.')+warning))return;
+  for(let other of active){other.lastEnd=localDatetime(n);other.lastEndFor=other.last}
+  if(!activeMega(m)){m.level=1;m.owned=true;m.uses=1;m.lastProgressDay=day}
+  else if(!sameProgressDay){
+    if(Number.isInteger(m.uses)&&m.uses>=0)m.uses+=1;
+    else m.extraRecordedDays=(Number(m.extraRecordedDays)||0)+1;
+    m.lastProgressDay=day;
+  }
+  m.last=localDatetime(n);m.lastEnd='';m.lastEndFor='';m.readyOverrideAt='';m.freeVerifiedAt='';
+  m.activationCountSinceV31=(Number(m.activationCountSinceV31)||0)+1;
+  m.lastActivationRegisteredAt=n.toISOString();
+  save();
+  if((+m.level===1&&m.uses>=7)||(+m.level===2&&m.uses>=30))alert('Je voortgang kan het volgende Mega Level hebben bereikt. Controleer het in Pokémon GO en werk het level zo nodig bij.');
+  else if(m.uses==null)alert('De activatie is geregistreerd, maar je oorspronkelijke evolutieteller was onbekend. Vul de juiste teller bij Instellen in.');
+}
+// Time-aware 30-day forward simulation. Never spends energy, never edits game history.
+function eventPriorityV31(e){
+  if(/community day/i.test(e.name))return 100;
+  if(/spotlight hour/i.test(e.name))return 90;
+  if(e.manual)return 85;
+  if(/go fest|wild area|safari/i.test(e.name))return 77;
+  if(/raid day/i.test(e.name))return 50;
+  return 35;
+}
+function eventEligibleV31(e){
+  if(!useful(e)||!isMainEvent(e))return false;
+  const types=typesFor(e);
+  // A season-long list containing nearly every type provides no defensible one-Mega answer.
+  if(types.length>9)return false;
+  return true;
+}
+function mainEventOnDayV31(d){
+  const key=dayKey(d);
+  const events=db.events.filter(e=>eventEligibleV31(e)&&dt(e.start)&&dt(e.end)&&activeOn(e,d)&&dayKey(dt(e.start))===key);
+  return events.sort((a,b)=>eventPriorityV31(b)-eventPriorityV31(a)||rarityScore(b)-rarityScore(a))[0]||null;
+}
+function eventTimeV31(e,now){
+  let a=dt(e.start),b=dt(e.end);
+  if(!a)return now;
+  if(a<now){if(b&&b>now)return now;return null}
+  return a;
+}
+function eventMatchScoreV31(m,e){
+  if(!activeMega(m)||!matching(m,e).length)return -1;
+  let match=matching(m,e).length,bonus=goal==='xl'?xl(m)*3+candy(m)*14:(4-Number(m.level))*45+xl(m);
+  return 100+match*90+bonus+(eventPriorityV31(e)/10);
+}
+function nextReadyAtV31(m,current,sim){
+  const entry=sim.get(m.id);
+  if(entry)return entry;
+  const state=stateAt(m,current);
+  if(state.kind==='free')return new Date(current.getTime());
+  if(state.kind==='waiting'||state.kind==='active')return state.free||null;
+  return null;
+}
+function reservedForV31(m,at,cooldownEnds,majorSlots){
+  if(!at||!cooldownEnds)return null;
+  for(let {e,t} of majorSlots){
+    if(t<=at||t>=cooldownEnds)continue;
+    if(!matching(m,e).length)continue;
+    const own=eventMatchScoreV31(m,e);
+    const alternatives=db.megas.filter(x=>x.id!==m.id&&activeMega(x)&&matching(x,e).length)
+      .map(x=>eventMatchScoreV31(x,e)).filter(x=>x>=0);
+    const bestOther=alternatives.length?Math.max(...alternatives):-1;
+    // Protect the only compatible Mega, or a materially stronger candidate.
+    if(bestOther<0||own>=bestOther+35)return e;
+  }
+  return null;
+}
+function buildPlanV31(now=new Date()){
+  const base=dayStart(now),days=[];
+  const eventSlots=[];
+  for(let i=0;i<30;i++){
+    let d=daysAfter(base,i),e=mainEventOnDayV31(d);
+    if(!e)continue;
+    const t=eventTimeV31(e,now);
+    if(t&&t<daysAfter(base,30))eventSlots.push({e,t});
+  }
+  const majors=eventSlots.filter(o=>eventPriorityV31(o.e)>=80);
+  const byDay=new Map(eventSlots.map(o=>[dayKey(o.t),o]));
+  let sim=new Map();
+  for(let i=0;i<30;i++){
+    const d=daysAfter(base,i),key=dayKey(d),slot=byDay.get(key);
+    const at=slot?.t||(i===0?now:new Date(d.getFullYear(),d.getMonth(),d.getDate(),12,0));
+    let action=null;
+    // Do not quietly end a currently active Mega to run a less important level cycle.
+    const actualActive=i===0?db.megas.find(m=>activeMega(m)&&megaActiveAt(m,now)):null;
+    if(slot){
+      const e=slot.e,options=db.megas.filter(m=>activeMega(m)&&matching(m,e).length)
+        .map(m=>({m,s:eventMatchScoreV31(m,e),ready:nextReadyAtV31(m,now,sim)}))
+        .sort((a,b)=>b.s-a.s);
+      const safe=options.filter(o=>o.ready&&o.ready<=at)
+        .filter(o=>!reservedForV31(o.m,at,new Date(at.getTime()+8*V31_HOUR+coolDays(o.m)*V31_DAY),majors.filter(x=>eventPriorityV31(x.e)>eventPriorityV31(e))));
+      if(actualActive&&matching(actualActive,e).length&&megaActiveAt(actualActive,at)){
+        action={kind:'active',m:actualActive,e,at,reason:'Al actief; niet opnieuw evolueren'};
+      }else if(safe.length){
+        let best=safe[0];action={kind:'event',m:best.m,e,at,reason:'Beste bekende type-match voor '+e.name};
+        sim.set(best.m.id,new Date(at.getTime()+8*V31_HOUR+coolDays(best.m)*V31_DAY));
+      }else if(options.length){
+        const missing=options.some(o=>!o.ready);
+        action={kind:'waiting',m:options[0].m,e,at,reason:missing?'Controleer eerst de cooldown in Pokémon GO':'Geen gratis passende Mega op dit tijdstip; bewaar Energy'};
+      }else{
+        action={kind:'unknown',m:null,e,at,reason:'Nog geen passende ontgrendelde Mega'};
+      }
+    }else if(actualActive){
+      action={kind:'active',m:actualActive,e:null,at,reason:'Deze Mega is momenteel actief. Niet onnodig wisselen.'};
+    }else{
+      const candidates=db.megas.filter(m=>activeMega(m)&&+m.level<3)
+        .map(m=>({m,ready:nextReadyAtV31(m,now,sim)}))
+        .filter(o=>o.ready&&o.ready<=at)
+        .map(o=>({...o,reserved:reservedForV31(o.m,at,new Date(at.getTime()+8*V31_HOUR+coolDays(o.m)*V31_DAY),majors)}))
+        .filter(o=>!o.reserved)
+        .sort((a,b)=> (+b.m.level===1?1:0)-(+a.m.level===1?1:0)|| (Number(b.m.uses)||0)-(Number(a.m.uses)||0)||a.m.name.localeCompare(b.m.name));
+      if(candidates.length){
+        const m=candidates[0].m;action={kind:'cycle',m,e:null,at,reason:'Gratis Mega-level vooruitgang; geen belangrijk evenement geblokkeerd'};
+        sim.set(m.id,new Date(at.getTime()+8*V31_HOUR+coolDays(m)*V31_DAY));
+      }else{
+        const hold=db.megas.filter(m=>activeMega(m))
+          .map(m=>({m,e:reservedForV31(m,at,new Date(at.getTime()+8*V31_HOUR+coolDays(m)*V31_DAY),majors)}))
+          .find(x=>x.e);
+        action=hold?{kind:'hold',m:hold.m,e:hold.e,at,reason:'Bewaar '+hold.m.name+' voor '+hold.e.name}:{kind:'none',m:null,e:null,at,reason:'Geen veilige gratis activatie gepland'};
+      }
+    }
+    days.push({day:d,key,slot,action});
+  }
+  return days;
+}
+function actionLabelV31(a){
+  return {event:'GEBRUIKEN',cycle:'GRATIS LEVELEN',hold:'BEWAREN',waiting:'WACHTEN',active:'ACTIEF',unknown:'CONTROLEREN',none:'GEEN ACTIE'}[a.kind]||'CONTROLEREN';
+}
+function actionClassV31(a){return a.kind==='event'||a.kind==='cycle'||a.kind==='active'?'good':a.kind==='hold'?'hold':a.kind==='waiting'?'bad':'check'}
+function renderToday(){
+  const now=new Date(),plan=buildPlanV31(now),today=plan[0],a=today.action;
+  const known=db.megas.filter(activeMega);
+  const free=known.filter(m=>stateAt(m,now).kind==='free'),unknown=known.filter(m=>stateAt(m,now).kind==='unknown');
+  const mega=a.m?`<div class="actionTitle">${esc(a.m.name)}</div>`:'<div class="actionTitle">Geen Mega nodig</div>';
+  $('todayMain').innerHTML=`<div class="kicker">🧠 V3.1 · Advies voor vandaag</div><div class="v31action"><span class="pill ${actionClassV31(a)}">${actionLabelV31(a)}</span>${a.e?`<span class="tinytext muted">${esc(a.e.name)}</span>`:''}</div>${mega}<p class="actionExplanation">${esc(a.reason)}</p>${a.m?`<p class="v31meta">${esc(levelProgressV31(a.m))} · Energy ${a.m.energy==null?'onbekend':esc(a.m.energy)}</p>`:''}<div class="v31hint">Dit is een <b>simulatie</b>, geen automatische Mega Evolution. Controleer de echte cooldown en spawninformatie in Pokémon GO.</div><div class="controls" style="margin-top:11px">${a.m?`<button class="btn cyan" data-openmega="${esc(a.m.id)}">Bekijk ${esc(a.m.name)}</button>`:''}<button class="btn ghost" data-tabtarget="plan">Hele planning</button></div>`;
+  $('todayStats').innerHTML=`<div class="metric"><small>Nu GRATIS volgens registratie</small><strong>${free.length}</strong></div><div class="metric"><small>Cooldown nog onbekend</small><strong>${unknown.length}</strong></div>`;
+  const future=plan.slice(1).filter(x=>x.slot&&eventPriorityV31(x.slot.e)>=80).slice(0,3);
+  $('holdCount').textContent=future.length+' belangrijke evenementen';
+  $('holdList').innerHTML=future.length?future.map(x=>`<div class="mini"><b>📅 ${esc(fmtDay(x.day))} · ${esc(x.slot.e.name)}</b><p>${esc(actionLabelV31(x.action))} ${x.action.m?'· '+esc(x.action.m.name):''}</p></div>`).join(''):'<div class="mini muted">Geen aankomende belangrijke wildvangstevenementen met bekende types.</div>';
+  $('cycleList').innerHTML=plan.filter(x=>x.action.kind==='cycle').slice(0,4).map(x=>`<div class="mini"><b>🔁 ${esc(fmtDay(x.day))}: ${esc(x.action.m.name)}</b><p>${esc(x.action.reason)} · ${esc(levelProgressV31(x.action.m))}</p></div>`).join('')||'<div class="mini muted">Nog geen veilige gratis level-actie volgens de huidige registratie.</div>';
+  $('unknownList').innerHTML=unknown.slice(0,6).map(m=>`<div class="mini"><div class="row between"><b>${esc(m.name)}</b><button class="btn small ghost" data-cooldown="${esc(m.id)}">Cooldown invoeren</button></div></div>`).join('')||'<div class="mini muted">Geen onbekende cooldowns.</div>';
+}
+function renderPlan(){
+  const p=buildPlanV31(),rows=[];
+  for(const v of p){
+    const a=v.action;
+    if(importantOnly && !v.slot && a.kind==='none')continue;
+    const meta=v.slot? v.slot.e.name : (a.kind==='cycle'?'Vrije Mega-progressie':'Geen belangrijk wild-spawnevent');
+    rows.push(`<div class="scheduleEntry"><div class="dateBadge">${esc(new Intl.DateTimeFormat('nl-NL',{weekday:'short'}).format(v.day))}<strong>${v.day.getDate()}</strong>${esc(new Intl.DateTimeFormat('nl-NL',{month:'short'}).format(v.day))}</div><div><div class="tinytext muted">${esc(meta)}</div><div class="v31action"><span class="pill ${actionClassV31(a)}">${actionLabelV31(a)}</span><b>${a.m?esc(a.m.name):''}</b></div><div class="v31meta">${esc(a.reason)}</div><button class="btn small ghost" data-day="${v.key}">Bekijk dag →</button></div></div>`)
+  }
+  $('agendaList').innerHTML=rows.join('')||'<div class="card">Geen belangrijke evenementen of veilige gratis activeringen gevonden.</div>';
+  let start=dayStart(new Date());
+  $('dateStrip').innerHTML=Array.from({length:30},(_,i)=>{let d=daysAfter(start,i),key=dayKey(d);return `<button class="datechip ${selected===key?'active':''}" data-day="${key}"><small>${esc(new Intl.DateTimeFormat('nl-NL',{weekday:'short'}).format(d))}</small><strong>${d.getDate()}</strong><small>${esc(new Intl.DateTimeFormat('nl-NL',{month:'short'}).format(d))}</small>${mainEventOnDayV31(d)?'<span class="dot"></span>':''}</button>`}).join('');
+  $('objectiveLabel').textContent=goal==='xl'?'🍬 Candy XL':'📈 Mega Levels';
+  $('goalXL').className='btn small '+(goal==='xl'?'cyan':'ghost');$('goalLevel').className='btn small '+(goal==='level'?'cyan':'ghost');
+  renderDay();
+}
+function renderDay(){
+  let d=dateFromKey(selected);if(!d)return;
+  let v=buildPlanV31().find(x=>x.key===selected);
+  const e=v?.slot?.e, a=v?.action;
+  let html=`<div class="card"><h2>${esc(new Intl.DateTimeFormat('nl-NL',{weekday:'long',day:'numeric',month:'long'}).format(d))}</h2><div class="line"></div>`;
+  if(a){html+=`<div class="v31action"><span class="pill ${actionClassV31(a)}">${actionLabelV31(a)}</span><b>${a.m?esc(a.m.name):''}</b></div><p class="muted">${esc(a.reason)}</p>${e?`<p class="v31meta">${esc(e.name)} · ${esc(fmtTime(v.slot.t))} · ${esc(matching(a.m||{},e).join(' / ')||'Geen passende types')}</p><div class="v3meta">${eventEvidence(e)}</div>`:''}`}
+  html+='<p class="tinytext muted">De rotatie is een voorstel; toekomstige activaties zijn nog niet uitgevoerd. Geen Mega Energy wordt automatisch uitgegeven.</p></div>';
+  let evs=eventsFor(d,false).filter(e=>isMainEvent(e));
+  for(let ev of evs.slice(0,12)){
+    const names=Array.isArray(ev.wildNames)?ev.wildNames:[],types=typesFor(ev);
+    html+=`<div class="eventCard"><div class="name">${esc(ev.name)}</div><div class="tinytext muted">${esc(evSummary(ev))}</div><div class="v3meta">${eventEvidence(ev)}</div>${types.length?`<div class="tagRow">${types.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>`:''}${names.length?`<p class="v31meta">Wilde Pokémon: ${esc(names.slice(0,12).join(', '))}${names.length>12?'…':''}</p>`:''}${ev.bonus?`<p class="tinytext muted">${esc(eventNote(ev))}</p>`:''}<p class="tinytext">${types.length>9?'Heel veel typen: geen betrouwbare topkeuze zonder spawnfrequenties.':!types.length?'Geen bevestigde wilde Pokémon-types.':e&&ev.id===e.id?'In de vooruitplanning meegenomen.':'Alleen ter informatie; geen automatische activatie ingepland.'}</p></div>`;
+  }
+  if(!evs.length)html+='<div class="mini muted">Geen relevant evenement met bekende details gevonden.</div>';
+  $('dayDetail').innerHTML=html;
+}
+function shouldHoldNowV31(m,now){
+  if(!activeMega(m))return false;
+  const big=[];
+  for(let i=0;i<30;i++){let e=mainEventOnDayV31(daysAfter(now,i));if(!e||eventPriorityV31(e)<80)continue;let t=eventTimeV31(e,now);if(t)big.push({e,t})}
+  return !!reservedForV31(m,now,new Date(now.getTime()+8*V31_HOUR+coolDays(m)*V31_DAY),big);
+}
+function renderMegas(){
+  let n=new Date(),search=$('megaSearch').value.toLowerCase(),fil=$('megaFilter').value;
+  let ms=db.megas.filter(m=>(m.name+' '+(m.types||[]).join(' ')).toLowerCase().includes(search));
+  if(fil!=='all')ms=ms.filter(m=>{let k=stateAt(m,n).kind;return fil==='free'?k==='free':fil==='unknown'?k==='unknown':fil==='hold'?shouldHoldNowV31(m,n):true});
+  $('megaGrid').innerHTML=ms.map(m=>{
+    let s=stateAt(m,n),hold=shouldHoldNowV31(m,n)&&s.kind==='free',status=s.kind==='active'?'ACTIEF':hold?'BEWAREN':s.kind==='free'?'GRATIS':s.kind==='unknown'?'CONTROLEREN':s.kind==='waiting'?'COOLDOWN':'NIET BESCHIKBAAR';
+    let message=hold?'Bewaar voor een aankomend belangrijk evenement':s.msg;
+    return `<div class="card mega"><div class="split"><h3>${esc(m.name)}</h3><span class="pill">L${m.level}</span></div><div class="meta">${esc((m.types||[]).join(' · '))}</div><div style="margin:9px 0"><span class="pill ${hold?'hold':actionClassV31({kind:s.kind==='free'?'event':s.kind==='waiting'?'waiting':s.kind})}">${esc(status)}</span></div><p class="tinytext muted">${esc(message)} · Energy ${m.energy==null?'onbekend':esc(m.energy)}</p><p class="v31progress">${esc(levelProgressV31(m))}</p><div class="cmds"><button class="btn small ghost" data-edit="${esc(m.id)}">Instellen</button>${activeMega(m)?`<button class="btn small ghost" data-cooldown="${esc(m.id)}">⏱ Cooldown</button>`:''}${activeMega(m)&&s.kind==='unknown'?`<button class="btn small cyan" data-verify="${esc(m.id)}">Is GRATIS</button>`:''}${s.kind==='active'?`<button class="btn small ghost" data-ended="${esc(m.id)}">Mega gestopt</button>`:`<button class="btn small ${hold?'ghost':'primary'}" data-used="${esc(m.id)}">Net geëvolueerd</button>`}</div></div>`;
+  }).join('')||'<div class="card muted">Geen Mega gevonden.</div>';
+  $('typeCoverage').innerHTML=TYPES.map(t=>{let a=db.megas.filter(m=>activeMega(m)&&(m.types||[]).includes(t)).sort((x,y)=>+y.level-+x.level);return `<div class="typeCard"><b>${t}</b><span>${a.length?esc(a.slice(0,2).map(m=>m.name+' L'+m.level).join(' · ')):'Nog geen Mega'}</span></div>`}).join('');
+}
+// Original event-handler sees the new button via this delegated listener.
+document.body.addEventListener('click',e=>{
+  const target=e.target.closest('[data-cooldown]');
+  if(target)editCooldownV31(target.dataset.cooldown);
+});
+// ---- end V3.1 ----
+
+document.body.addEventListener('click',e=>{let t=e.target.closest('[data-tabtarget],[data-day],[data-used],[data-ended],[data-verify],[data-edit],[data-openmega],[data-edit-event]');if(!t)return;if(t.dataset.tabtarget)activate(t.dataset.tabtarget);if(t.dataset.day){selected=t.dataset.day;activate('plan');renderPlan();$('dayDetail').scrollIntoView({block:'start',behavior:'smooth'})}if(t.dataset.used)markEvolved(t.dataset.used);if(t.dataset.ended)markEnded(t.dataset.ended);if(t.dataset.verify)markFree(t.dataset.verify);if(t.dataset.edit)editMega(t.dataset.edit);if(t.dataset.openmega){activate('megas');editMega(t.dataset.openmega)}if(t.dataset.editEvent)editEvent(t.dataset.editEvent)});
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>activate(b.dataset.tab));$('megaSearch').oninput=renderMegas;$('megaFilter').onchange=renderMegas;$('addMega').onclick=()=>editMega(null);$('addEvent').onclick=()=>editEvent(null);$('closeModal').onclick=close;$('dialog').onclick=e=>{if(e.target===$('dialog'))close()};document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});$('goalXL').onclick=()=>{goal='xl';localStorage.setItem('pogo-mega-goal',goal);render()};$('goalLevel').onclick=()=>{goal='level';localStorage.setItem('pogo-mega-goal',goal);render()};$('onlyImportant').onchange=v=>{importantOnly=v.target.checked;renderPlan()};$('refreshFeed').onclick=syncFeed;$('forceSync').onclick=syncFeed;$('showAllEvents').onclick=()=>{let el=$('allEventsList'),visible=el.style.display!=='none';el.style.display=visible?'none':'block';if(!visible)renderAllEvents()};$('exportBackup').onclick=()=>download('Pokemon_GO_Mega_Backup_'+dayKey(new Date())+'.json',JSON.stringify({version:3,exported:new Date().toISOString(),megas:db.megas,events:db.events},null,2));$('importBackup').onclick=()=>$('importFile').click();$('importFile').onchange=async e=>{let f=e.target.files?.[0];if(!f)return;try{let d=JSON.parse(await f.text());if(!Array.isArray(d.megas)||!Array.isArray(d.events))throw Error('ongeldig back-upbestand');if(confirm('Wil je je huidige Mega-gegevens vervangen door de back-up?')){db={megas:d.megas,events:d.events};save()}}catch(err){alert('Back-up kon niet worden gelezen: '+err.message)}e.target.value=''};
+db.events=db.events.map(safeLegacyV3);render();renderTrustV3();syncFeed();setInterval(()=>{renderToday();renderPlan();renderMegas();renderTrustV3()},60000);
+})();
+</script></body></html>
