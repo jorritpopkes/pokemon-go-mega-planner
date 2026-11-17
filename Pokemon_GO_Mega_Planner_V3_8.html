@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0c1626"><title>Mega Planner V3.8</title>
+<style>body{background:#0c1626;color:#edf6ff;font:16px system-ui,sans-serif;padding:24px;line-height:1.55}a{color:#6ee4d9}.panel{max-width:550px;margin:10vh auto;background:#19243b;border-radius:16px;padding:24px;border:1px solid #405170}</style></head><body><div class="panel"><h1>🐉 Mega Planner V3.8</h1><p id="status">Planner en 30-dagenoptimizer laden…</p><p id="fallback" hidden><a href="./Pokemon_GO_Mega_Planner_V3_2.html">Open vertrouwde V3.2</a></p></div>
+<script>
+(async function(){
+'use strict';
+// V3.8 is a non-destructive upgrade of V3.2. Only its planning code changes.
+// The unchanged V3.2 is preserved on GitHub for instant manual rollback.
+function eventsOnDayV33(d,now){
+  const start=dayStart(d),end=dayEnd(d);
+  const earliest=now>start?now:start;
+  return db.events.filter(e=>eventEligibleV31(e)&&activeOn(e,d)).map(e=>{
+    const a=dt(e.start),b=dt(e.end);
+    if(!a||!b||b<=earliest)return null;
+    // A time-limited event needs its real start time; a running multi-day
+    // event gets a representative midday play slot, not its original start day.
+    const duration=(b-a)/V31_HOUR;
+    let t;
+    if(dayKey(a)===dayKey(d)&&duration<8)t=new Date(Math.max(a.getTime(),earliest.getTime()));
+    else t=new Date(Math.max(earliest.getTime(),Math.min(b.getTime()-60000,new Date(d.getFullYear(),d.getMonth(),d.getDate(),12,0).getTime())));
+    if(t>end||t>=b)return null;
+    return {e,t};
+  }).filter(Boolean).sort((x,y)=>x.t-y.t||eventPriorityV31(y.e)-eventPriorityV31(x.e)).slice(0,10);
+}
+function mainEventOnDayV31(d){
+  const slots=eventsOnDayV33(d,dayStart(d));
+  return slots.sort((a,b)=>eventPriorityV31(b.e)-eventPriorityV31(a.e)||a.t-b.t)[0]?.e||null;
+}
+// V3.5: Compare event allocations over all 30 days rather than choosing greedily.
+// Beam states are simulated only; they never change the Pokémon GO activity log.
+function eventRewardV35(m,e){
+  const n=matching(m,e).length;
+  if(!n||!activeMega(m))return -1;
+  const p=eventPriorityV31(e);
+  const weight=p>=100?5:p>=90?4:p>=80?3:p>=70?2.25:1;
+  const quality=e.confidence==='title'?0.7:e.confidence==='partial'?0.85:e.confidence==='legacy'?0.6:1;
+  const bonus=goal==='xl'?(30*n+2.6*xl(m)+8*candy(m)):(30*n+26*(4-Number(m.level))+0.7*xl(m));
+  // This is a relative planning score, not an estimated number of XL Candy.
+  return Math.round(weight*quality*(35+bonus));
+}
+function buildPlanV31(now=new Date()){
+  const base=dayStart(now),days=[],windowEnd=daysAfter(base,30);
+  const allSlots=[];
+  for(let i=0;i<30;i++){
+    const d=daysAfter(base,i);
+    for(const slot of eventsOnDayV33(d,now))if(slot.t<windowEnd)allSlots.push(slot);
+  }
+  allSlots.sort((a,b)=>a.t-b.t||eventPriorityV31(b.e)-eventPriorityV31(a.e));
+  const members=db.megas.filter(activeMega),byId=new Map(members.map((m,i)=>[m.id,i]));
+  const initialReady=members.map(m=>{
+    const st=stateAt(m,now);
+    if(st.kind==='free')return now.getTime();
+    if(st.kind==='active'||st.kind==='waiting')return st.free?.getTime()??Infinity;
+    return Infinity;
+  });
+  const actualIndex=members.findIndex(m=>megaActiveAt(m,now));
+  const realActive=actualIndex>=0?megaEndAt(members[actualIndex])?.getTime()||0:0;
+  const seed={value:0,ready:initialReady,active:actualIndex,activeEnd:realActive,
+    activePriority:0,eventEnd:0,trail:[]};
+  const beamSize=120;
+  let beam=[seed];
+  function signature(state){
+    return state.active+'|'+Math.round(state.activeEnd/60000)+'|'+state.ready.map(t=>Number.isFinite(t)?Math.round(t/60000):'x').join(',');
+  }
+  for(const slot of allSlots){
+    const t=slot.t.getTime(),e=slot.e,priority=eventPriorityV31(e),expanded=[];
+    const candidates=members.map((m,i)=>({m,i,points:eventRewardV35(m,e)}))
+      .filter(x=>x.points>0).sort((a,b)=>b.points-a.points);
+    for(const state of beam){
+      const current=state.active>=0&&state.activeEnd>t?state.active:-1;
+      const currentMatches=current>=0&&candidates.some(x=>x.i===current);
+      const freeChoices=candidates.filter(x=>x.i===current||state.ready[x.i]<=t);
+      const blocked=!!(current>=0&&state.eventEnd>t&&state.activePriority>priority);
+      const skip={kind:freeChoices.length?'hold':candidates.length?'waiting':'unknown',
+        m:freeChoices[0]?.m||candidates[0]?.m||null,e,at:slot.t,
+        reason:freeChoices.length?'Niet activeren: de 30-dagenplanning bewaart de gratis optie voor een andere inzet':
+          candidates.length?'Geen passende gratis Mega op dit tijdstip; controleer Pokémon GO':'Geen passende ontgrendelde Mega bekend'};
+      expanded.push({...state,trail:state.trail.concat([{slot,action:skip}])});
+      for(const candidate of freeChoices){
+        const {m,i,points}=candidate;
+        if(blocked&&i!==current)continue;
+        const isAlreadyActive=i===current;
+        const nextReady=state.ready.slice();
+        if(!isAlreadyActive){
+          if(current>=0)nextReady[current]=t+coolDays(members[current])*V31_DAY;
+          nextReady[i]=t+8*V31_HOUR+coolDays(m)*V31_DAY;
+        }
+        const action={kind:isAlreadyActive?'active':'event',m,e,at:slot.t,
+          reason:isAlreadyActive?'Volgens de gezamenlijke planning actief; geen nieuwe evolutie nodig':
+            'Gekozen na vergelijking met latere evenementen; registreer alleen na echte activatie'};
+        expanded.push({value:state.value+points-(isAlreadyActive?0:7),ready:nextReady,active:i,
+          activeEnd:isAlreadyActive?state.activeEnd:t+8*V31_HOUR,
+          activePriority:isAlreadyActive?Math.max(state.activePriority,priority):priority,
+          eventEnd:isAlreadyActive?Math.max(state.eventEnd,dt(e.end)?.getTime()||0):dt(e.end)?.getTime()||0,
+          trail:state.trail.concat([{slot,action}])});
+      }
+    }
+    expanded.sort((a,b)=>b.value-a.value);
+    const unique=new Set();beam=[];
+    for(const state of expanded){
+      const key=signature(state);if(unique.has(key))continue;
+      unique.add(key);beam.push(state);
+      if(beam.length>=beamSize)break;
+    }
+  }
+  const winning=(beam.sort((a,b)=>b.value-a.value)[0]||seed).trail;
+  winning.forEach((item,i)=>{if(item.action.m&&['event','active','hold'].includes(item.action.kind))item.action.reason=plannedReasonV37(item,winning,i)});
+  const eventUses=new Map();
+  for(const {slot,action} of winning){
+    if(action.kind!=='event'||!action.m)continue;
+    if(!eventUses.has(action.m.id))eventUses.set(action.m.id,[]);
+    eventUses.get(action.m.id).push(slot.t.getTime());
+  }
+  const runtimeReady=initialReady.slice();
+  let active=actualIndex,activeEnd=realActive;
+  function evolve(m,t){
+    const index=byId.get(m.id),time=t.getTime();
+    if(active>=0&&active!==index&&activeEnd>time)
+      runtimeReady[active]=time+coolDays(members[active])*V31_DAY;
+    runtimeReady[index]=time+8*V31_HOUR+coolDays(m)*V31_DAY;
+    active=index;activeEnd=time+8*V31_HOUR;
+  }
+  for(let i=0;i<30;i++){
+    const d=daysAfter(base,i),key=dayKey(d);
+    const actions=winning.filter(x=>dayKey(x.slot.t)===key),slots=actions.map(x=>x.slot);
+    const first=slots[0]?.t,begin=new Date(cycleStartV32(d,now));
+    const cutoff=first?first.getTime()-20*60000:Infinity;
+    const cycles=[],usedToday=new Set(actions.filter(x=>x.action.m&&['event','active'].includes(x.action.kind)).map(x=>x.action.m.id));
+    const isActiveAtStart=active>=0&&activeEnd>begin.getTime();
+    if(!isActiveAtStart&&begin.getTime()<cutoff){
+      const available=members.filter(m=>m.level<3&&!usedToday.has(m.id)&&!alreadyLeveledOnV32(m,d))
+        .filter(m=>runtimeReady[byId.get(m.id)]<=begin.getTime())
+        .filter(m=>{
+          const predictedReady=begin.getTime()+8*V31_HOUR+coolDays(m)*V31_DAY;
+          return !(eventUses.get(m.id)||[]).some(time=>time>begin.getTime()&&time<predictedReady);
+        })
+        .sort((a,b)=>(Number.isInteger(a.uses)?0:1)-(Number.isInteger(b.uses)?0:1)||
+          Number(a.level)-Number(b.level)||a.name.localeCompare(b.name));
+      for(let n=0;n<Math.min(20,available.length);n++){
+        const t=new Date(begin.getTime()+n*3*60000);
+        if(t.getTime()+10*60000>=cutoff)break;
+        cycles.push({m:available[n],at:t});
+        evolve(available[n],t);
+      }
+    }
+    for(const item of actions){
+      const {slot,action}=item,t=slot.t.getTime();
+      if(action.kind==='event'&&action.m){
+        const index=byId.get(action.m.id);
+        // Never advise an impossible free use if a training cycle changed readiness.
+        if(runtimeReady[index]<=t)evolve(action.m,slot.t);
+        else{
+          action.kind='waiting';action.reason='Cooldown is door eerdere planning niet op tijd klaar; controleer Pokémon GO';
+        }
+      }else if(action.kind==='active'&&action.m){
+        if(active<0||members[active].id!==action.m.id||activeEnd<=t){
+          action.kind='waiting';action.reason='Geplande actieve Mega niet meer beschikbaar; controleer Pokémon GO';
+        }
+      }
+    }
+    let action=actions.find(x=>x.action.kind==='event')?.action||actions[0]?.action||null;
+    if(!action){
+      if(cycles.length)action={kind:'cycle',m:cycles[0].m,e:null,at:cycles[0].at,reason:cycles.length+' verschillende gratis Megas levelen'};
+      else if(active>=0&&activeEnd>new Date(d.getFullYear(),d.getMonth(),d.getDate(),12).getTime())
+        action={kind:'active',m:members[active],e:null,at:new Date(activeEnd),reason:'Deze Mega blijft volgens de simulatie actief'};
+      else action={kind:'none',m:null,e:null,at:d,reason:'Geen belangrijk evenement of veilige gratis rotatie'};
+    }
+    days.push({day:d,key,slot:slots[0]||null,slots,action,actions,cycles});
+  }
+  return days;
+}
+
+function plannedStatusV34(a){
+  return a.kind==='active'?'GEPLAND ACTIEF':actionLabelV31(a);
+}
+function slotTimeV34(slot){
+  const a=dt(slot.e.start),b=dt(slot.e.end);
+  const isShort=a&&b&&(b-a)<=8*V31_HOUR;
+  return (isShort?'Evenement ':'Voorgesteld speelmoment ')+fmtTime(slot.t);
+}
+function renderToday(){
+  const now=new Date(),plan=buildPlanV31(now),v=plan[0],a=v.action,cycles=v.cycles;
+  const known=db.megas.filter(activeMega),free=known.filter(m=>stateAt(m,now).kind==='free'),unknown=known.filter(m=>stateAt(m,now).kind==='unknown');
+  const lines=v.actions.map(({slot,action})=>`<div class="mini"><b>${esc(slotTimeV34(slot))} · ${esc(slot.e.name)}</b><p><span class="pill ${actionClassV31(action)}">${esc(plannedStatusV34(action))}</span> ${action.m?esc(action.m.name):'Geen passende Mega bevestigd'}</p><p class="tinytext muted">${esc(action.reason)}</p>${confidenceMarkupV37(slot.e)}</div>`).join('');
+  $('todayMain').innerHTML=`<div class="kicker">Keuzehulp V3.8 · gezamenlijke 30-dagenplanning</div><div class="v31action"><span class="pill ${actionClassV31(a)}">${plannedStatusV34(a)}</span></div><div class="actionTitle">${a.m?esc(a.m.name):'Geen vaste Mega'}</div><p class="tinytext muted">${esc(a.reason)}</p>${lines?`<h3>Evenementen vandaag</h3>${lines}`:''}<div class="v31hint">GEPLAND ACTIEF is alleen een simulatie, geen bevestigde evolutie. Controleer GRATIS altijd in Pokémon GO en registreer elke echte Mega Evolution.</div><div class="controls"><button class="btn ghost" data-tabtarget="plan">Hele planning</button></div>`;
+  $('todayStats').innerHTML=`<div class="metric"><small>Nu GRATIS volgens registratie</small><strong>${free.length}</strong></div><div class="metric"><small>Cooldown nog onbekend</small><strong>${unknown.length}</strong></div>`;
+  const future=plan.slice(1).flatMap(day=>day.actions.filter(x=>eventPriorityV31(x.slot.e)>=80).map(x=>({...x,day:day.day}))).slice(0,3);
+  $('holdCount').textContent=future.length+' belangrijke evenementen';
+  $('holdList').innerHTML=future.length?future.map(x=>`<div class="mini"><b>📅 ${esc(fmtDay(x.day))} · ${esc(x.slot.e.name)}</b><p>${esc(plannedStatusV34(x.action))} ${x.action.m?'· '+esc(x.action.m.name):''}</p></div>`).join(''):'<div class="mini muted">Geen komende belangrijke evenementen met bevestigde wildtypes.</div>';
+  if($('v32CycleCount'))$('v32CycleCount').textContent=cycles.length+' vandaag';
+  $('cycleList').innerHTML=cycles.length?cycles.map((x,i)=>`<div class="mini"><div class="row between"><b>${i+1}. ${esc(x.m.name)}</b><button class="btn small ghost" data-openmega="${esc(x.m.id)}">Bekijk</button></div><p>${esc(levelProgressV31(x.m))} · controleer eerst of GRATIS klopt</p></div>`).join(''):'<div class="mini muted">Geen extra veilige gratis Mega Evolutions volgens de bekende cooldowns.</div>';
+  $('unknownList').innerHTML=unknown.slice(0,6).map(m=>`<div class="mini"><div class="row between"><b>${esc(m.name)}</b><button class="btn small ghost" data-cooldown="${esc(m.id)}">Cooldown invoeren</button></div></div>`).join('')||'<div class="mini muted">Geen onbekende cooldowns.</div>';
+  if(v37NowRequested)showNowAdviceV37(now,plan);
+}
+function renderPlan(){
+  const plan=buildPlanV31(),rows=[];
+  for(const v of plan){
+    const a=v.action,cycles=v.cycles;
+    if(importantOnly&&!v.slots.length&&!cycles.length&&a.kind==='none')continue;
+    const summary=v.slots.length?`${v.slots.length} gepland(e) eventmoment(en)`:cycles.length?'Gratis Mega-progressie':'Geen groot evenement';
+    const details=v.actions.map(x=>`<div class="v31meta">${esc(slotTimeV34(x.slot))} ${esc(x.slot.e.name)} · ${esc(plannedStatusV34(x.action))} ${x.action.m?esc(x.action.m.name):''} · ${esc(confidenceV37(x.slot.e).label)}</div>`).join('');
+    rows.push(`<div class="scheduleEntry"><div class="dateBadge">${esc(new Intl.DateTimeFormat('nl-NL',{weekday:'short'}).format(v.day))}<strong>${v.day.getDate()}</strong>${esc(new Intl.DateTimeFormat('nl-NL',{month:'short'}).format(v.day))}</div><div><div class="tinytext muted">${summary}</div>${details||`<div class="v31action"><span class="pill ${actionClassV31(a)}">${plannedStatusV34(a)}</span>${a.m?esc(a.m.name):''}</div>`}${cycles.length?`<div class="v32compact">🔁 ${cycles.length} gratis levelen: ${esc(cycles.slice(0,5).map(x=>x.m.name).join(' · '))}</div>`:''}<button class="btn small ghost" data-day="${v.key}">Bekijk dag →</button></div></div>`);
+  }
+  $('agendaList').innerHTML=rows.join('')||'<div class="card">Geen belangrijke evenementen of gratis evoluties gepland.</div>';
+  const start=dayStart(new Date());
+  $('dateStrip').innerHTML=Array.from({length:30},(_,i)=>{const d=daysAfter(start,i),key=dayKey(d);return `<button class="datechip ${selected===key?'active':''}" data-day="${key}"><small>${esc(new Intl.DateTimeFormat('nl-NL',{weekday:'short'}).format(d))}</small><strong>${d.getDate()}</strong><small>${esc(new Intl.DateTimeFormat('nl-NL',{month:'short'}).format(d))}</small>${eventsOnDayV33(d,dayStart(d)).length?'<span class="dot"></span>':''}</button>`}).join('');
+  $('objectiveLabel').textContent=goal==='xl'?'🍬 Candy XL':'📈 Mega Levels';
+  $('goalXL').className='btn small '+(goal==='xl'?'cyan':'ghost');$('goalLevel').className='btn small '+(goal==='level'?'cyan':'ghost');renderDay();
+}
+function renderDay(){
+  const d=dateFromKey(selected);if(!d)return;
+  const v=buildPlanV31().find(x=>x.key===selected);
+  const acts=v?.actions||[],cycles=v?.cycles||[];
+  let html=`<div class="card"><h2>${esc(new Intl.DateTimeFormat('nl-NL',{weekday:'long',day:'numeric',month:'long'}).format(d))}</h2><p class="tinytext muted">Evenementen op volgorde. Een Mega-wissel beëindigt de vorige bonus.</p>`;
+  for(const {slot,action} of acts)html+=`<div class="mini"><b>${esc(slotTimeV34(slot))} · ${esc(slot.e.name)}</b><p><span class="pill ${actionClassV31(action)}">${esc(plannedStatusV34(action))}</span> ${action.m?esc(action.m.name):'Geen zekere Mega'}</p><p class="tinytext muted">${esc(action.reason)}</p>${confidenceMarkupV37(slot.e)}<div class="v3meta">${eventEvidence(slot.e)}</div></div>`;
+  if(!acts.length)html+='<p class="muted">Geen bevestigde wild-spawnevenementen voor de optimalisatie.</p>';
+  if(cycles.length){html+=`<div class="v32cycle"><b>🔁 ${cycles.length} gratis Mega Evolutions</b><p class="v32step">Vóór het eerste evenement, of op een rustige dag. Activeer verschillende Megas achter elkaar.</p><ol class="v32queue">`;for(const c of cycles)html+=`<li><b>${esc(c.m.name)}</b> · ${esc(levelProgressV31(c.m))}</li>`;html+='</ol></div>'}
+  html+='<p class="tinytext muted">Tijden bij meerdaagse events zijn voorgestelde speelmomenten, geen officiële begintijden. Gratis status en daadwerkelijk Mega Level blijven te controleren in Pokémon GO.</p></div>';
+  const events=eventsFor(d,false).filter(e=>isMainEvent(e));
+  for(const ev of events.slice(0,12)){const types=typesFor(ev),names=Array.isArray(ev.wildNames)?ev.wildNames:[];html+=`<div class="eventCard"><div class="name">${esc(ev.name)}</div><div class="v3meta">${eventEvidence(ev)}</div>${types.length?`<div class="tagRow">${types.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>`:''}${names.length?`<p class="v31meta">Wilde Pokémon: ${esc(names.slice(0,12).join(', '))}</p>`:''}<p class="tinytext muted">${ev.bonus?esc(eventNote(ev)):''}</p></div>`;}
+  $('dayDetail').innerHTML=html;
+}
+// V3.6: live timers read the same saved cooldowns as the planner.
+function remainingTextV36(ms){
+  const seconds=Math.max(0,Math.ceil(ms/1000));
+  const days=Math.floor(seconds/86400),hours=Math.floor(seconds%86400/3600);
+  const minutes=Math.floor(seconds%3600/60),secs=seconds%60;
+  const pad=n=>String(n).padStart(2,'0');
+  return days?days+'d '+pad(hours)+'u '+pad(minutes)+'m':pad(hours)+'u '+pad(minutes)+'m '+pad(secs)+'s';
+}
+function countdownSpanV36(when){
+  const t=when instanceof Date?when.getTime():Number(when);
+  if(!Number.isFinite(t))return '<span class="v36digits">Onbekend</span>';
+  return '<span class="v36digits" data-v36-until="'+t+'">'+remainingTextV36(t-Date.now())+'</span>';
+}
+function megaTimerMarkupV36(m,s,now){
+  if(!activeMega(m))return '';
+  const ready=freeAt(m),end=megaEndAt(m);
+  if(s.kind==='active'&&end&&end>now){
+    return '<div class="v36timers"><div class="v36timer"><span class="v36timer-label">Nog actief</span>'+countdownSpanV36(end)+'</div>'+
+      (ready&&ready>now?'<div class="v36timer"><span class="v36timer-label">Weer gratis over</span>'+countdownSpanV36(ready)+'</div>':'')+'</div>';
+  }
+  if(s.kind==='waiting'&&ready&&ready>now){
+    return '<div class="v36timers"><div class="v36timer"><span class="v36timer-label">Weer gratis over</span>'+countdownSpanV36(ready)+'</div></div>';
+  }
+  if(s.kind==='free')return '<div class="v36freeclock">Nu gratis'+(shouldHoldNowV31(m,now)?' · aanbevolen om te bewaren':'')+'</div>';
+  if(s.kind==='unknown')return '<div class="v36unknownclock">Geen betrouwbare cooldown · vul deze in via Cooldown</div>';
+  return '';
+}
+function tickCountdownsV36(){
+  if(document.visibilityState==='hidden')return;
+  const now=Date.now();let expired=false;
+  for(const el of document.querySelectorAll('[data-v36-until]')){
+    const until=Number(el.getAttribute('data-v36-until'));
+    if(!Number.isFinite(until))continue;
+    if(until<=now){expired=true;break;}
+    el.textContent=remainingTextV36(until-now);
+  }
+  // The original state resolver decides when ACTIEF or COOLDOWN becomes GRATIS.
+  if(expired)renderMegas();
+}
+function renderMegas(){
+  const n=new Date(),search=$('megaSearch').value.toLowerCase(),fil=$('megaFilter').value;
+  let ms=db.megas.filter(m=>(m.name+' '+(m.types||[]).join(' ')).toLowerCase().includes(search));
+  if(fil!=='all')ms=ms.filter(m=>{let k=stateAt(m,n).kind;return fil==='free'?k==='free':fil==='unknown'?k==='unknown':fil==='hold'?shouldHoldNowV31(m,n):true});
+  $('megaGrid').innerHTML=ms.map(m=>{
+    const s=stateAt(m,n),hold=shouldHoldNowV31(m,n)&&s.kind==='free';
+    const status=s.kind==='active'?'ACTIEF':hold?'BEWAREN':s.kind==='free'?'GRATIS':s.kind==='unknown'?'CONTROLEREN':s.kind==='waiting'?'COOLDOWN':'NIET BESCHIKBAAR';
+    const message=hold?'Bewaar voor een aankomend belangrijk evenement':s.msg;
+    return `<div class="card mega"><div class="split"><h3>${esc(m.name)}</h3><span class="pill">L${m.level}</span></div><div class="meta">${esc((m.types||[]).join(' · '))}</div><div style="margin:9px 0"><span class="pill ${hold?'hold':actionClassV31({kind:s.kind==='free'?'event':s.kind==='waiting'?'waiting':s.kind})}">${esc(status)}</span></div>${megaTimerMarkupV36(m,s,n)}<p class="tinytext muted">${esc(message)} · Energy ${m.energy==null?'onbekend':esc(m.energy)}</p><p class="v31progress">${esc(levelProgressV31(m))}</p><div class="cmds"><button class="btn small ghost" data-edit="${esc(m.id)}">Instellen</button>${activeMega(m)?`<button class="btn small ghost" data-cooldown="${esc(m.id)}">Cooldown</button>`:''}${activeMega(m)&&s.kind==='unknown'?`<button class="btn small cyan" data-verify="${esc(m.id)}">Is GRATIS</button>`:''}${s.kind==='active'?`<button class="btn small ghost" data-ended="${esc(m.id)}">Mega gestopt</button>`:`<button class="btn small ${hold?'ghost':'primary'}" data-used="${esc(m.id)}">Net geëvolueerd</button>`}</div></div>`;
+  }).join('')||'<div class="card muted">Geen Mega gevonden.</div>';
+  $('typeCoverage').innerHTML=TYPES.map(t=>{let a=db.megas.filter(m=>activeMega(m)&&(m.types||[]).includes(t)).sort((x,y)=>+y.level-+x.level);return `<div class="typeCard"><b>${t}</b><span>${a.length?esc(a.slice(0,2).map(m=>m.name+' L'+m.level).join(' · ')):'Nog geen Mega'}</span></div>`}).join('');
+  const upcoming=db.megas.filter(activeMega).map(m=>({m,s:stateAt(m,n),ready:freeAt(m)}))
+    .filter(x=>['waiting','active'].includes(x.s.kind)&&x.ready&&x.ready>n).sort((a,b)=>a.ready-b.ready);
+  const overview=$('v36NextFree');
+  if(overview){
+    const next=upcoming[0];
+    overview.innerHTML=`<div class="v36overview-title">Eerstvolgende gratis Mega</div>${next?`<b>${esc(next.m.name)}</b><div class="v36headline">${countdownSpanV36(next.ready)}</div>`:'<p class="tinytext muted">Geen bekende lopende cooldowns.</p>'}<p class="tinytext muted">Gebaseerd op je geregistreerde evoluties en rustperioden. Controleer de werkelijke status in Pokémon GO.</p>`;
+  }
+  const today=$('v36TodayNext');
+  if(today){
+    const next=upcoming[0];
+    today.innerHTML=`<b>Volgende gratis Mega</b>${next?`<div class="v36todayline"><span>${esc(next.m.name)}</span>${countdownSpanV36(next.ready)}</div>`:'<p class="tinytext muted">Geen bekende lopende cooldowns.</p>'}`;
+  }
+  tickCountdownsV36();
+}
+
+// V3.7: Explain *type coverage*, not imaginary catch probabilities or exact XL yield.
+function confidenceV37(e){
+  const kind=String(e.confidence||'unknown'),wild=Array.isArray(e.wildNames)?e.wildNames:[];
+  if(kind==='listed'&&wild.length)return {label:'Wild-spawns vermeld',detail:'Typen gebaseerd op vermelde wilde Pokémon. Hun onderlinge vangstaantallen zijn onbekend.',level:'strong'};
+  if(e.manual||kind==='manual')return {label:'Eigen evenement',detail:'Gebaseerd op je eigen invoer; controleer de wilde Pokémon en tijden.',level:'partial'};
+  if(kind==='partial')return {label:'Voorlopige keuze',detail:'Niet alle wilde Pokémon of typen zijn bekend; het advies kan veranderen.',level:'partial'};
+  if(kind==='title')return {label:'Afgeleid advies',detail:'Typen zijn afgeleid uit de evenementtitel en kunnen onvolledig zijn.',level:'partial'};
+  return {label:'Onzekere gegevens',detail:'De beschikbare wild-spawngegevens zijn onvolledig of mogelijk verouderd.',level:'weak'};
+}
+function confidenceMarkupV37(e){
+  const c=confidenceV37(e);
+  return `<div class="v37confidence v37-${c.level}"><strong>${esc(c.label)}</strong><span>${esc(c.detail)}</span></div>`;
+}
+function plannedReasonV37(item,trail,i){
+  const {slot,action}=item,e=slot.e,m=action.m;
+  if(!m)return action.reason;
+  const covered=matching(m,e),short=covered.join(' en ');
+  const coverage=covered.length?'Dekt '+short+' bij dit evenement':'Geen bevestigde type-overlap';
+  const uncertainty=confidenceV37(e).level==='strong'?'':' Let op: dit is een voorlopig typeadvies.';
+  if(action.kind==='active')return `${coverage}. ${m.name} blijft volgens de simulatie actief; wisselen is hier niet nodig.${uncertainty}`;
+  if(action.kind==='event'){
+    const future=trail.slice(i+1).find(x=>x.action.kind==='event'&&x.action.m&&x.action.m.id!==m.id&&
+      x.slot.t>slot.t&&x.slot.t.getTime()<slot.t.getTime()+8*V31_HOUR+coolDays(m)*V31_DAY&&
+      eventPriorityV31(x.slot.e)>=eventPriorityV31(e));
+    const futureInfo=future?` In deze periode plant de optimizer ook ${future.action.m.name} voor ${future.slot.e.name}.`:'';
+    return `${coverage} (Mega Level ${m.level}). Deze keuze volgt uit de gezamenlijke 30-dagenafweging.${futureInfo}${uncertainty}`;
+  }
+  if(action.kind==='hold'){
+    const later=trail.slice(i+1).find(x=>x.action.kind==='event'&&x.action.m&&x.action.m.id===m.id&&
+      x.slot.t>slot.t&&x.slot.t.getTime()<slot.t.getTime()+8*V31_HOUR+coolDays(m)*V31_DAY);
+    return later?`Bewaar ${m.name}: gepland voor ${later.slot.e.name} op ${fmtDay(later.slot.t)}. Nu geen nieuwe Mega starten.${uncertainty}`:
+      'Geen nieuwe Mega starten volgens de 30-dagenafweging; zo blijven latere opties open.';
+  }
+  return action.reason;
+}
+// V3.8: Quiet-day advice favors reusable free Megas, but protects event assignments.
+// This is not a prediction of species or Candy XL outside published events.
+function quietAdviceV38(now,plan){
+  const known=db.megas.filter(activeMega).map(m=>({m,state:stateAt(m,now)}));
+  const active=known.find(x=>x.state.kind==='active');
+  if(active){
+    const end=megaEndAt(active.m);
+    const endText=end?' tot '+fmtTime(end):'';
+    return {kind:'active',title:active.m.name,event:null,
+      message:`${active.m.name} is al Mega-actief${endText}. Houd de bonus zolang je vangt; opnieuw evolueren is niet nodig. Bij wisselen begint zijn cooldown eerder. Zonder bekend wild-spawnevenement is er geen gegarandeerde beste Candy XL-typekeuze.`};
+  }
+  const free=known.filter(x=>x.state.kind==='free');
+  if(!free.length){
+    const waiting=known.filter(x=>x.state.kind==='waiting'&&x.state.free)
+      .sort((a,b)=>a.state.free-b.state.free);
+    const soon=waiting[0];
+    return soon?{kind:'waiting',title:'Nog geen gratis Mega beschikbaar',event:null,
+      message:`Volgens je registratie is ${soon.m.name} als eerste weer gratis op ${fmtDay(soon.state.free)} om ${fmtTime(soon.state.free)}. De planner adviseert geen betaalde evolutie. Controleer de werkelijke cooldown in Pokémon GO.`}:
+      {kind:'none',title:'Geen gratis Mega bevestigd',event:null,
+      message:'Er is nu geen gratis of actieve Mega bevestigd. Controleer zo nodig de cooldown in Pokémon GO; de planner gaat niet gokken.'};
+  }
+  const future=(plan||[]).flatMap(day=>day.actions||[])
+    .filter(x=>x.slot?.t>now&&x.action?.kind==='event'&&x.action.m)
+    .sort((a,b)=>a.slot.t-b.slot.t);
+  const options=free.map(({m,state})=>{
+    const nextFree=now.getTime()+8*V31_HOUR+coolDays(m)*V31_DAY;
+    // Preserve an event Mega whenever a new full activation could block its next free use.
+    // An actual earlier switch can improve readiness, but is not assumed here.
+    const reserved=future.find(x=>x.action.m.id===m.id&&x.slot.t.getTime()<nextFree);
+    const canProgress=+m.level<3&&!alreadyLeveledOnV32(m,now);
+    return {m,state,reserved,canProgress,days:coolDays(m)};
+  });
+  const safe=options.filter(x=>!x.reserved).sort((a,b)=>
+    a.days-b.days || Number(b.canProgress)-Number(a.canProgress) || +b.m.level-+a.m.level || a.m.name.localeCompare(b.m.name));
+  if(!safe.length){
+    const first=options.filter(x=>x.reserved).sort((a,b)=>a.reserved.slot.t-b.reserved.slot.t)[0];
+    return {kind:'hold',title:'Bewaar je gratis Megas',event:null,
+      message:`De beschikbare Megas zijn binnen hun mogelijke cooldownperiode gepland voor latere evenementen, waaronder ${first.reserved.slot.e.name} op ${fmtDay(first.reserved.slot.t)}. De planner adviseert nu geen nieuwe evolutie. Een eerdere wissel kan de cooldown verkorten, maar is nog niet bevestigd.`};
+  }
+  const first=safe[0],m=first.m;
+  const benefit=first.canProgress?`Deze evolutie kan ook meetellen voor zijn volgende Mega Level, zolang je ${m.name} vandaag nog niet hebt geleveld.`:
+    +m.level>=3?'Zijn maximale Mega-levelvoortgang is bereikt; opnieuw evolueren helpt niet meer met levelen.':
+      'Vandaag is voor deze Mega al voortgang geregistreerd; opnieuw evolueren verhoogt zijn Mega-levelvoortgang niet nogmaals.';
+  const extra=safe.find(x=>x.canProgress&&x.m.id!==m.id);
+  const extraText=extra?` Voor extra gratis Mega-levelvoortgang kun je eventueel ook ${extra.m.name} inzetten, maar een wissel beëindigt de vorige bonus.`:'';
+  return {kind:'free',title:m.name,event:null,
+    message:`Als je nu gaat vangen, is ${m.name} een flexibele gratis optie: cooldown ${first.days} ${first.days===1?'dag':'dagen'} nadat de Mega Evolution eindigt. ${benefit} Er is geen bekend lopend wild-spawnevenement met voldoende typen; dit is dus geen bewezen beste Candy XL-match. ${m.name} is in de huidige planning niet nodig voordat de volgende volledige cooldown verstreken zou zijn.${extraText} Controleer GRATIS in Pokémon GO en registreer alleen een echte activatie.`};
+}
+
+function nowAdviceV37(now,plan){
+  const ongoing=db.events.filter(e=>eventEligibleV31(e)&&dt(e.start)&&dt(e.end)&&dt(e.start)<=now&&dt(e.end)>now)
+    .sort((a,b)=>eventPriorityV31(b)-eventPriorityV31(a)||
+      (confidenceV37(a).level==='strong'?-1:1)-(confidenceV37(b).level==='strong'?-1:1));
+  if(!ongoing.length)return quietAdviceV38(now,plan);
+  const e=ongoing[0],eventConfidence=confidenceV37(e);
+  const matches=db.megas.filter(activeMega).filter(m=>matching(m,e).length).map(m=>({m,score:eventRewardV35(m,e),s:stateAt(m,now)}));
+  const available=matches.filter(x=>x.s.kind==='free'||x.s.kind==='active');
+  if(!available.length)return {kind:'unknown',title:'Geen bevestigde gratis match',message:`${e.name} loopt nu, maar voor de passende Megas is geen gratis evolutie bevestigd. Controleer eerst de status in Pokémon GO; betaalde evoluties staan niet in dit advies.`,event:e};
+  const future=plan.flatMap(d=>d.actions||[]).filter(x=>x.slot.t>now&&x.action.kind==='event'&&x.action.m&&x.slot.e.id!==e.id);
+  const ranked=available.map(x=>{
+    const next=future.find(f=>f.action.m.id===x.m.id&&f.slot.t.getTime()<now.getTime()+8*V31_HOUR+coolDays(x.m)*V31_DAY&&eventPriorityV31(f.slot.e)>eventPriorityV31(e));
+    return {...x,reservedFor:next||null,adjusted:x.score*(next?0.48:1)};
+  }).sort((a,b)=>b.adjusted-a.adjusted);
+  const active=ranked.find(x=>x.s.kind==='active');
+  const winner=active&&active.adjusted>=ranked[0].adjusted*0.85?active:ranked[0];
+  const types=matching(winner.m,e).join(' en '),isActive=winner.s.kind==='active';
+  const alternate=ranked.find(x=>x.m.id!==winner.m.id);
+  let reason=`${winner.m.name} dekt ${types} (Mega Level ${winner.m.level}). `;
+  reason+=isActive?'Deze Mega is al actief; opnieuw evolueren is niet nodig.':
+    'Volgens jouw registratie is deze Mega gratis. Registreer de evolutie pas als je hem echt activeert.';
+  if(winner.reservedFor)reason+=isActive?` Let op: deze Mega is ook voorzien voor ${winner.reservedFor.slot.e.name}; controleer of de cooldown op tijd afloopt.`:` Let op: hij staat ook gepland voor ${winner.reservedFor.slot.e.name}; je kunt er nu voor kiezen hem te bewaren.`;
+  if(alternate&&alternate.reservedFor&&!winner.reservedFor)reason+=` ${alternate.m.name} is voorlopig voorzien voor ${alternate.reservedFor.slot.e.name}.`;
+  if(eventConfidence.level!=='strong')reason+=' De wilde-spawngegevens zijn deels onzeker.';
+  return {kind:isActive?'active':'free',title:winner.m.name,message:reason,event:e};
+}
+function showNowAdviceV37(now,plan){
+  const el=$('v37NowResult');if(!el)return;
+  const a=nowAdviceV37(now,plan),c=a.event?confidenceV37(a.event):null;
+  const badge=a.kind==='active'?'AL ACTIEF':a.kind==='free'?'NU GRATIS VOLGENS PLANNER':a.kind==='hold'?'BEWAREN VOOR LATER':a.kind==='waiting'?'COOLDOWN':'GEEN VAST ADVIES';
+  el.innerHTML=`<div class="v37nowanswer"><span class="pill ${a.kind==='free'||a.kind==='active'?'good':'check'}">${esc(badge)}</span><h3>${esc(a.title)}</h3>${a.event?`<p class="tinytext"><b>Actief evenement:</b> ${esc(a.event.name)}</p>`:''}<p>${esc(a.message)}</p>${a.event?confidenceMarkupV37(a.event):''}<p class="tinytext muted">Dit is een advies voor het huidige moment, geen automatische activatie. Controleer de echte gratis status in Pokémon GO.</p></div>`;
+}
+function onNowClickV37(e){
+  if(!e.target.closest('#v37NowButton'))return;
+  v37NowRequested=true;
+  showNowAdviceV37(new Date(),buildPlanV31(new Date()));
+}
+
+function replaceRegion(html,start,end,updated){
+  const b=html.indexOf(end),a=b<0?-1:html.lastIndexOf(start,b);
+  if(a<0||b<=a)throw Error('V3.2 code-layout is gewijzigd ('+start+')');
+  return html.slice(0,a)+updated+'\n'+html.slice(b);
+}
+try{
+  const response=await fetch('./Pokemon_GO_Mega_Planner_V3_2.html?v=38',{cache:'no-store'});
+  if(!response.ok)throw Error('V3.2 niet bereikbaar: '+response.status);
+  let html=await response.text();
+  if(!html.includes("const KEY='pogo-mega-planner-v1'")||!html.includes('function buildPlanV31('))throw Error('V3.2-bron niet herkend');
+  html=replaceRegion(html,'function mainEventOnDayV31(d){','function eventTimeV31(e,now){',eventsOnDayV33.toString()+'\n'+mainEventOnDayV31.toString());
+  html=replaceRegion(html,'function buildPlanV31(now=new Date()){','function actionLabelV31(a){',eventRewardV35.toString()+'\n'+buildPlanV31.toString());
+  html=replaceRegion(html,'function renderToday(){','function shouldHoldNowV31(m,now){',plannedStatusV34.toString()+'\n'+slotTimeV34.toString()+'\n'+renderToday.toString()+'\n'+renderPlan.toString()+'\n'+renderDay.toString());
+  // Replace only the final V3.2 Mega-card renderer; no storage or cooldown model changes.
+  html=replaceRegion(html,'function renderMegas(){','// Original event-handler sees',
+    remainingTextV36.toString()+'\n'+countdownSpanV36.toString()+'\n'+megaTimerMarkupV36.toString()+'\n'+tickCountdownsV36.toString()+'\n'+renderMegas.toString());
+  if(!html.includes('<div class="grid2" id="todayStats"></div>')||!html.includes('<div class="megaGrid" id="megaGrid"></div>'))throw Error('V3.2 pagina-indeling is gewijzigd');
+  html=html.replace('<div class="grid2" id="todayStats"></div>',
+    '<div class="grid2" id="todayStats"></div><div class="card" id="v36TodayNext" style="margin-top:10px"></div>');
+  html=html.replace('<div class="megaGrid" id="megaGrid"></div>',
+    '<div class="card" id="v36NextFree"></div><div class="megaGrid" id="megaGrid"></div>');
+  html=html.replace('</style>',`
+/* V3.6 · compacte live timers voor Android */
+.v36timers{display:grid;gap:6px;margin:7px 0 9px}
+.v36timer{display:flex;flex-direction:column;gap:1px;padding:8px 9px;background:#101f33;border:1px solid #344962;border-radius:10px;min-width:0}
+.v36timer-label{font-size:11px;line-height:1.25;color:#b1cbe0;font-weight:600}
+.v36digits{display:inline-block;font-variant-numeric:tabular-nums;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:clamp(12px,3.3vw,17px);font-weight:850;line-height:1.4;letter-spacing:-.3px;white-space:normal;overflow-wrap:normal;color:#a9f3e1}
+.v36freeclock,.v36unknownclock{font-size:12px;padding:7px 9px;margin:8px 0;border-radius:10px;background:#1b3b36;color:#b4f6d3}
+.v36unknownclock{background:#2b3042;color:#d8cbe6}
+#v36NextFree,#v36TodayNext{border-color:#3c786f;background:#18353d;padding:12px 14px}
+.v36overview-title{color:#b9d9d5;font-size:12px;margin-bottom:4px}
+.v36headline{margin-top:4px}.v36headline .v36digits{font-size:clamp(20px,5vw,27px)}
+.v36todayline{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap;margin:5px 0}
+.v36todayline .v36digits{font-size:17px}
+\n</style>`);
+  if(!html.includes('// ---- end V3.2 ----'))throw Error('V3.2 scriptslot gewijzigd');
+  html=html.replace('// ---- end V3.2 ----','setInterval(tickCountdownsV36,1000);\n// ---- end V3.2 ----');
+  // The existing 30-day optimizer, timer, cooldown logic and localStorage key stay intact.
+  html=html.replace('<div class="card mainAction" id="todayMain"></div>',
+    '<div class="card mainAction" id="todayMain"></div><div class="card" id="v37NowPanel"><button id="v37NowButton" class="btn cyan" type="button">Wat is nu mijn beste Mega?</button><div id="v37NowResult" class="tinytext muted" style="margin-top:8px">Tik voor een actueel advies, ook op rustige dagen.</div></div>');
+  html=html.replace('</style>',`
+/* V3.7: clear explanations and a time-sensitive one-tap recommendation. */
+#v37NowPanel{border-color:#477782;background:#1b2e43}
+#v37NowButton{width:100%;text-align:left}
+.v37nowanswer{margin-top:10px;padding:11px 12px;background:#13263b;border:1px solid #39506a;border-radius:12px}
+.v37nowanswer h3{font-size:18px;margin:7px 0 2px}
+.v37nowanswer p{font-size:13px;line-height:1.5;margin:7px 0}
+.v37confidence{border-left:3px solid #688ba3;padding:5px 8px;margin:8px 0;font-size:11px;background:#192c40;border-radius:4px;display:flex;flex-direction:column;gap:1px}
+.v37confidence strong{font-size:11px}
+.v37confidence span{color:#b9cada}
+.v37confidence.v37-strong{border-color:#78dcb2}
+.v37confidence.v37-partial{border-color:#e9c586}
+.v37confidence.v37-weak{border-color:#d799a7}
+
+</style>`);
+  if(!html.includes('setInterval(tickCountdownsV36,1000);'))throw Error('V3.6 timers ontbreken');
+  html=html.replace('// ---- end V3.2 ----',
+    confidenceV37.toString()+'\n'+confidenceMarkupV37.toString()+'\n'+plannedReasonV37.toString()+'\n'+quietAdviceV38.toString()+'\n'+nowAdviceV37.toString()+'\n'+showNowAdviceV37.toString()+'\n'+onNowClickV37.toString()+'\n'+
+    'let v37NowRequested=false;\ndocument.body.addEventListener(\'click\',onNowClickV37);\n// ---- end V3.2 ----');
+  html=html.replace('Mijn Mega Planner V3.2','Mijn Mega Planner V3.8').replace('V3.2 · meerdere Megas per dag','V3.8 · slim op rustige dagen').replace('V3.2 haalt de publieke','V3.8 haalt de publieke');
+  document.open();document.write(html);document.close();
+}catch(err){
+  document.getElementById('status').textContent='V3.8 kon niet laden: '+String(err.message||err);
+  document.getElementById('fallback').hidden=false;
+}
+})();
+</script></body></html>
