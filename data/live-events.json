@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-16T10:50:20+00:00",
+  "updated": "2026-11-17T14:38:10+00:00",
   "source": "https://pokelitee.github.io/leak-duck/events.json",
   "events": [
     {
@@ -39,20 +39,6 @@
       "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
     },
     {
-      "id": "live_5810bddd63aae3",
-      "name": "GO Wild Area: Gigantamax Machamp Power Up! Timed Research",
-      "start": "2026-11-06T10:00",
-      "end": "2026-11-15T23:59",
-      "types": [
-        "Fighting"
-      ],
-      "bonus": "There will be Timed Research available to Trainers starting Friday, November 6, at 10:00 a.m. to Sunday, November 15, 2026, at 11:59 p.m. local time.",
-      "category": "event",
-      "source": "https://leekduck.com/events/go-wild-area-gigantamax-machamp-power-up-timed-research/",
-      "catch": false,
-      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
-    },
-    {
       "id": "live_e800c6da2acbe3",
       "name": "Great League, Ultra League: Mega Edition, and 2026 GO LAIC Cup | Twilight Trails",
       "start": "2026-11-10T22:00",
@@ -63,23 +49,6 @@
       "source": "https://leekduck.com/events/gbl-twilight-trails_great-league_ultra-league-mega-edition_2026-go-laic-cup/",
       "catch": false,
       "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
-    },
-    {
-      "id": "live_bc91cbdaf19ea5",
-      "name": "Pokémon GO Wild Area 2026: Global",
-      "start": "2026-11-14T10:00",
-      "end": "2026-11-15T18:00",
-      "types": [
-        "Steel",
-        "Psychic",
-        "Flying",
-        "Dragon"
-      ],
-      "bonus": "1/2 Stardust cost for trades; 2× Candy for catching Pokémon; 2× Incense duration",
-      "category": "event",
-      "source": "https://leekduck.com/events/pokemon-go-wild-area-2026-global/",
-      "catch": true,
-      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
     },
     {
       "id": "live_62b83b41574dc6",
@@ -112,18 +81,6 @@
       "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
     },
     {
-      "id": "live_4fa6370b6b53d7",
-      "name": "Max Monday: Pokémon to be announced",
-      "start": "2026-11-16T06:00",
-      "end": "2026-11-16T21:00",
-      "types": [],
-      "bonus": "The featured Dynamax Pokémon for November 16–23, 2026 has not been announced. Stay tuned for more details.",
-      "category": "tba",
-      "source": "https://leekduck.com/events/max-mondays-2026-11-16/",
-      "catch": false,
-      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
-    },
-    {
       "id": "live_4a2e2d1d4d274d",
       "name": "Mega Banette in Mega Raids",
       "start": "2026-11-16T06:00",
@@ -152,6 +109,18 @@
       "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
     },
     {
+      "id": "live_a27bea2a44bee3",
+      "name": "[Canceled] Max Monday",
+      "start": "2026-11-16T06:00",
+      "end": "2026-11-16T21:00",
+      "types": [],
+      "bonus": "There is no Max Monday on November 16, 2026. The Dynamax Trails event is happening instead, so there are no Max Monday-specific bonuses, such as the guaranteed Rare Candy XL.",
+      "category": "event",
+      "source": "https://leekduck.com/events/max-mondays-2026-11-16/",
+      "catch": false,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
+    },
+    {
       "id": "live_ce8a2cbcfbc139",
       "name": "Dynamax Trails",
       "start": "2026-11-16T10:00",
@@ -173,6 +142,18 @@
       "source": "https://leekduck.com/events/dynamax-trails-2026/",
       "catch": true,
       "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
+    },
+    {
+      "id": "live_f99f79d885038b",
+      "name": "Pokémon GO and Duolingo Timed Research",
+      "start": "2026-11-17T10:00",
+      "end": "2026-12-31T23:59",
+      "types": [],
+      "bonus": "Pokémon GO and Duolingo are teaming up! Do at least one Duolingo lesson a day for seven days to earn an offer code for Timed Research in Pokémon GO. Complete the research to earn XP, Stardust, and encounters with Pikachu",
+      "category": "event",
+      "source": "https://leekduck.com/events/duolingo-timed-research-2026/",
+      "catch": false,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
     },
     {
       "id": "live_0e3ec4324f540f",
