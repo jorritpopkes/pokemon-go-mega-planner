@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-17T14:38:10+00:00",
+  "updated": "2026-11-18T14:14:26+00:00",
   "source": "https://pokelitee.github.io/leak-duck/events.json",
   "events": [
     {
@@ -107,18 +107,6 @@
       "source": "https://leekduck.com/events/shadow-tornadus-incarnate-forme-in-shadow-raids-november-16-2026/",
       "catch": true,
       "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
-    },
-    {
-      "id": "live_a27bea2a44bee3",
-      "name": "[Canceled] Max Monday",
-      "start": "2026-11-16T06:00",
-      "end": "2026-11-16T21:00",
-      "types": [],
-      "bonus": "There is no Max Monday on November 16, 2026. The Dynamax Trails event is happening instead, so there are no Max Monday-specific bonuses, such as the guaranteed Rare Candy XL.",
-      "category": "event",
-      "source": "https://leekduck.com/events/max-mondays-2026-11-16/",
-      "catch": false,
-      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
     },
     {
       "id": "live_ce8a2cbcfbc139",
