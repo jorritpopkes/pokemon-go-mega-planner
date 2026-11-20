@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-19T14:30:14+00:00",
+  "updated": "2026-11-20T14:08:24+00:00",
   "source": "https://pokelitee.github.io/leak-duck/events.json",
   "events": [
     {
@@ -132,21 +132,6 @@
       "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
     },
     {
-      "id": "live_0e3ec4324f540f",
-      "name": "Cresselia and Darkrai Raid Hour",
-      "start": "2026-11-18T18:00",
-      "end": "2026-11-18T19:00",
-      "types": [
-        "Psychic",
-        "Dark"
-      ],
-      "bonus": "A Raid Hour featuring Cresselia and Darkrai is scheduled from 6:00 p.m. to 7:00 p.m. local time. During this hour there will be an increased number of five-star raids.",
-      "category": "raid",
-      "source": "https://leekduck.com/events/raidhour20261118/",
-      "catch": true,
-      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
-    },
-    {
       "id": "live_98ad799a562944",
       "name": "Ultra League, Master League: Mega Edition, and 2026 GO LAIC Cup | Twilight Trails",
       "start": "2026-11-18T22:00",
@@ -173,6 +158,18 @@
       "source": "https://leekduck.com/events/pokemonspotlighthour2026-11-19/",
       "catch": true,
       "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
+    },
+    {
+      "id": "live_b3f0f21e9a091d",
+      "name": "Twitch Drops for 2027 Pokémon Latin America International Championships",
+      "start": "2026-11-20T13:00",
+      "end": "2026-11-23T00:00",
+      "types": [],
+      "bonus": "Get codes for exclusive Timed Research and a Battle Bundle during the 2027 Pokémon Latin America International Championships Twitch broadcast.",
+      "category": "event",
+      "source": "https://leekduck.com/events/pokemon-latin-america-international-championships-2027-timed-research-twitch-drops/",
+      "catch": false,
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
     },
     {
       "id": "live_6c3e044859d279",
