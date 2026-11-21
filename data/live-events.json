@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-20T14:08:24+00:00",
+  "updated": "2026-11-21T13:33:25+00:00",
   "source": "https://pokelitee.github.io/leak-duck/events.json",
   "events": [
     {
@@ -37,21 +37,6 @@
       "source": "https://leekduck.com/events/go-pass-november-2026/",
       "catch": false,
       "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
-    },
-    {
-      "id": "live_62b83b41574dc6",
-      "name": "Minior Showers: Leonids 2026",
-      "start": "2026-11-14T17:00",
-      "end": "2026-11-19T23:59",
-      "types": [
-        "Rock",
-        "Flying"
-      ],
-      "bonus": "Increased Stardust for catching Minior; Increased chance to encounter Minior from 5:00 p.m. to 9:00 p.m. local time each day",
-      "category": "event",
-      "source": "https://leekduck.com/events/minior-showers-leonids-2026/",
-      "catch": true,
-      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
     },
     {
       "id": "live_1283836eb14ec3",
@@ -142,22 +127,6 @@
       "source": "https://leekduck.com/events/gbl-twilight-trails_ultra-league_master-league-mega-edition_2026-go-laic-cup/",
       "catch": false,
       "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
-    },
-    {
-      "id": "live_ffd8ed591858b8",
-      "name": "Grookey, Scorbunny, and Sobble Spotlight Hour",
-      "start": "2026-11-19T18:00",
-      "end": "2026-11-19T19:00",
-      "types": [
-        "Grass",
-        "Fire",
-        "Water"
-      ],
-      "bonus": "Pokémon Spotlight Hour will feature a different Pokémon and special bonus for one hour at 6:00 p.m. local time.",
-      "category": "event",
-      "source": "https://leekduck.com/events/pokemonspotlighthour2026-11-19/",
-      "catch": true,
-      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
     },
     {
       "id": "live_b3f0f21e9a091d",
@@ -364,16 +333,22 @@
       "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
     },
     {
-      "id": "live_271d1cba56f16f",
-      "name": "December Community Day",
+      "id": "live_dc362d5778ffba",
+      "name": "December Community Day 2026",
       "start": "2026-12-12T14:00",
       "end": "2026-12-13T17:00",
-      "types": [],
-      "bonus": "The December Community Day event will take place on December 12 and December 13, 2026 from 2 pm to 5 pm each day. Stay tuned for more details.",
+      "types": [
+        "Grass",
+        "Dark",
+        "Steel",
+        "Fire",
+        "Water"
+      ],
+      "bonus": "1-hour Lures*; 1/2 Hatch Distance when Eggs are placed into Incubators during the event period; 2x Catch Candy",
       "category": "event",
       "source": "https://leekduck.com/events/december-communityday2026/",
       "catch": true,
-      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
+      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
     },
     {
       "id": "live_fa9bdcd68c20fb",
