@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-21T13:33:25+00:00",
+  "updated": "2026-11-22T13:26:54+00:00",
   "source": "https://pokelitee.github.io/leak-duck/events.json",
   "events": [
     {
@@ -139,21 +139,6 @@
       "source": "https://leekduck.com/events/pokemon-latin-america-international-championships-2027-timed-research-twitch-drops/",
       "catch": false,
       "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
-    },
-    {
-      "id": "live_6c3e044859d279",
-      "name": "Eternamax Eternatus Returns",
-      "start": "2026-11-21T11:00",
-      "end": "2026-11-21T14:00",
-      "types": [
-        "Poison",
-        "Dragon"
-      ],
-      "bonus": "8× Max Particles from Power Spots; Max Particle collection limit increased to 2,400; Power Spots will refresh more frequently",
-      "category": "event",
-      "source": "https://leekduck.com/events/eternamax-eternatus-max-battles-2026/",
-      "catch": false,
-      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
     },
     {
       "id": "live_2c47311e6680d4",
