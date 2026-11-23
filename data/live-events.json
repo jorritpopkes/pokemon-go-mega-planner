@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-22T13:26:54+00:00",
+  "updated": "2026-11-23T16:08:16+00:00",
   "source": "https://pokelitee.github.io/leak-duck/events.json",
   "events": [
     {
@@ -127,33 +127,6 @@
       "source": "https://leekduck.com/events/gbl-twilight-trails_ultra-league_master-league-mega-edition_2026-go-laic-cup/",
       "catch": false,
       "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
-    },
-    {
-      "id": "live_b3f0f21e9a091d",
-      "name": "Twitch Drops for 2027 Pokémon Latin America International Championships",
-      "start": "2026-11-20T13:00",
-      "end": "2026-11-23T00:00",
-      "types": [],
-      "bonus": "Get codes for exclusive Timed Research and a Battle Bundle during the 2027 Pokémon Latin America International Championships Twitch broadcast.",
-      "category": "event",
-      "source": "https://leekduck.com/events/pokemon-latin-america-international-championships-2027-timed-research-twitch-drops/",
-      "catch": false,
-      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
-    },
-    {
-      "id": "live_2c47311e6680d4",
-      "name": "Pawniard Community Day",
-      "start": "2026-11-21T14:00",
-      "end": "2026-11-21T17:00",
-      "types": [
-        "Dark",
-        "Steel"
-      ],
-      "bonus": "1-hour Lures*; 1/4 Egg Hatch Distance; 2x Catch Candy",
-      "category": "event",
-      "source": "https://leekduck.com/events/november-communityday2026/",
-      "catch": true,
-      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
     },
     {
       "id": "live_88def687697293",
