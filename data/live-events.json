@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-23T16:08:16+00:00",
+  "updated": "2026-11-24T15:58:25+00:00",
   "source": "https://pokelitee.github.io/leak-duck/events.json",
   "events": [
     {
@@ -82,29 +82,6 @@
       "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
     },
     {
-      "id": "live_ce8a2cbcfbc139",
-      "name": "Dynamax Trails",
-      "start": "2026-11-16T10:00",
-      "end": "2026-11-23T20:00",
-      "types": [
-        "Psychic",
-        "Steel",
-        "Grass",
-        "Normal",
-        "Ice",
-        "Fighting",
-        "Dark",
-        "Ghost",
-        "Fire",
-        "Water"
-      ],
-      "bonus": "1/2 Candy and Stardust cost to activate the Dynamax Cannon Adventure Effect; 2× Catch Stardust; Additional Candy and Candy XL from Max Battles",
-      "category": "event",
-      "source": "https://leekduck.com/events/dynamax-trails-2026/",
-      "catch": true,
-      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
-    },
-    {
       "id": "live_f99f79d885038b",
       "name": "Pokémon GO and Duolingo Timed Research",
       "start": "2026-11-17T10:00",
@@ -127,20 +104,6 @@
       "source": "https://leekduck.com/events/gbl-twilight-trails_ultra-league_master-league-mega-edition_2026-go-laic-cup/",
       "catch": false,
       "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
-    },
-    {
-      "id": "live_88def687697293",
-      "name": "Dynamax Espurr during Max Monday",
-      "start": "2026-11-23T06:00",
-      "end": "2026-11-23T21:00",
-      "types": [
-        "Psychic"
-      ],
-      "bonus": "Dynamax Espurr may appear in Max Battles from November 23, 2026 through November 29, 2026.",
-      "category": "event",
-      "source": "https://leekduck.com/events/max-mondays-2026-11-23/",
-      "catch": false,
-      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
     },
     {
       "id": "live_5be62bd4897966",
