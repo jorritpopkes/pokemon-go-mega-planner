@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-24T15:58:25+00:00",
+  "updated": "2026-11-25T15:45:29+00:00",
   "source": "https://pokelitee.github.io/leak-duck/events.json",
   "events": [
     {
@@ -37,35 +37,6 @@
       "source": "https://leekduck.com/events/go-pass-november-2026/",
       "catch": false,
       "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
-    },
-    {
-      "id": "live_1283836eb14ec3",
-      "name": "Cresselia and Darkrai in 5-star Raid Battles",
-      "start": "2026-11-16T06:00",
-      "end": "2026-11-24T22:00",
-      "types": [
-        "Psychic",
-        "Dark"
-      ],
-      "bonus": "Cresselia and Darkrai will be in five-star raid battles from November 16, 2026 to November 24, 2026.",
-      "category": "raid",
-      "source": "https://leekduck.com/events/cresselia-darkrai-in-5-star-raid-battles-november-2026/",
-      "catch": true,
-      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
-    },
-    {
-      "id": "live_4a2e2d1d4d274d",
-      "name": "Mega Banette in Mega Raids",
-      "start": "2026-11-16T06:00",
-      "end": "2026-11-24T22:00",
-      "types": [
-        "Ghost"
-      ],
-      "bonus": "Mega Banette will be in Mega Raids from November 16, 2026 at 6 am to November 24, 2026 at 10 pm local time.",
-      "category": "raid",
-      "source": "https://leekduck.com/events/mega-banette-in-mega-raids-november-2026/",
-      "catch": true,
-      "notes": "Automatically sourced from Leek Duck via Leak Duck. Boosted types inferred from named Pokémon; confirm event details."
     },
     {
       "id": "live_c13dc18735d79d",
