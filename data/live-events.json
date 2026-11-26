@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-25T15:45:29+00:00",
+  "updated": "2026-11-26T15:27:21+00:00",
   "source": "https://pokelitee.github.io/leak-duck/events.json",
   "events": [
     {
@@ -61,18 +61,6 @@
       "bonus": "Pokémon GO and Duolingo are teaming up! Do at least one Duolingo lesson a day for seven days to earn an offer code for Timed Research in Pokémon GO. Complete the research to earn XP, Stardust, and encounters with Pikachu",
       "category": "event",
       "source": "https://leekduck.com/events/duolingo-timed-research-2026/",
-      "catch": false,
-      "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
-    },
-    {
-      "id": "live_98ad799a562944",
-      "name": "Ultra League, Master League: Mega Edition, and 2026 GO LAIC Cup | Twilight Trails",
-      "start": "2026-11-18T22:00",
-      "end": "2026-11-25T22:00",
-      "types": [],
-      "bonus": "The Ultra League, Master League: Mega Edition, and 2026 GO LAIC Cup will run from November 18, 2026, at 1:00 p.m. to November 25, 2026, at 1:00 p.m. PT.",
-      "category": "event",
-      "source": "https://leekduck.com/events/gbl-twilight-trails_ultra-league_master-league-mega-edition_2026-go-laic-cup/",
       "catch": false,
       "notes": "Automatically sourced from Leek Duck via Leak Duck. Featured types not recognized or not announced yet; check source before choosing a Mega."
     },
